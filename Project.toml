@@ -1,0 +1,7 @@
+name = "DeepLearningPipelines"
+uuid = "e6530d7c-7faa-4ede-a0d6-9eff9baad396"
+authors = ["Lorenz Ohly <lorenz.ohly@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
