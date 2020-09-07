@@ -1,0 +1,44 @@
+
+@with_kw mutable struct ImageClassification <: Task{Image, ImageTensor, OneHotVector, Class}
+    nclasses::Int
+    spatialtransforms::SpatialTransforms = SpatialTransforms()
+    imagepreprocessing::ImagePreprocessing = ImagePreprocessing()
+end
+
+function ImageClassification(
+        nclasses::Int;
+        sz = (224, 224),
+        augmentations = Identity(),
+        means = IMAGENET_MEANS,
+        stds = IMAGENET_STDS,
+        C = RGB,
+    )
+    spatialtransforms = SpatialTransforms(sz, augmentations)
+    imagepreprocessing = ImagePreprocessing(C, means, stds)
+    ImageClassification(nclasses, spatialtransforms, imagepreprocessing)
+end
+
+
+
+function encodeinput(
+        task::ImageClassification,
+        image::Image;
+        inference = false,
+        augment = false)
+    return task.spatialtransforms(image; augment) |> task.imagepreprocessing
+end
+
+
+function encodeoutput(
+        task::ImageClassification,
+        class::Class;
+        inference = false,
+        augment = false)
+    return onehotencode(class, task.nclasses)
+end
+
+
+encodetarget(task::ImageClassification, class::Class; kwargs...) =
+    DataAugmentation.onehot(class, 1:task.nclasses)
+
+decodeoutput(task::ImageClassification, ŷ) = argmax(ŷ; dims = 1)
