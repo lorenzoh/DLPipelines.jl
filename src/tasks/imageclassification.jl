@@ -41,4 +41,14 @@ end
 encodetarget(task::ImageClassification, class::Class; kwargs...) =
     DataAugmentation.onehot(class, 1:task.nclasses)
 
-decodeoutput(task::ImageClassification, ŷ) = argmax(ŷ; dims = 1)
+decodeoutput(task::ImageClassification, ŷ) = argmax(ŷ)
+
+interpretinput(task::ImageClassification, image::Image) = image
+
+function interpretx(task::ImageClassification, x)
+    return invert(task.imagepreprocessing, x)
+end
+
+function interprettarget(task::ImageClassification, class::Class)
+    return "Class $class"
+end

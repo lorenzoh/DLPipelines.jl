@@ -1,6 +1,6 @@
 
 """
-    Task{In, TOut, X, Y}
+    Task{I, O, X, Y}
 
 A `Task`
 
@@ -95,11 +95,23 @@ function decodeoutput(task, y) end
 
 # Inference
 
-predict(task, model, input; device = cpu) =
-    encodeinput(task, input; inference = true) |>
-    device |>
-    model |>
+function predict(task, model, input; device = cpu, batch = true)
+    x = encodeinput(task, input; inference = true)
+    xs = device(reshape(x, size(x)..., 1))
+    ŷs = model(xs)
+    return decodeoutput(task, )
     ŷ -> decodeoutput(task, ŷ)
+
+end
+
+
+# Interpretation
+
+function interpretinput(task, input) end
+function interprettarget(task, target) end
+function interpretx(task, x) end
+interprety(task, y) = interprettarget(task, decodeoutput(task, y))
+
 
 
 #= Ideas

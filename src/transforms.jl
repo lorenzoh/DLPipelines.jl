@@ -38,3 +38,8 @@ function (ip::ImagePreprocessing)(img::Image)
     tfms = ToEltype{ip.C}() |> SplitChannels() |> Normalize(ip.means, ip.stds)
     apply(tfms, DataAugmentation.Image(img)) |> itemdata
 end
+
+
+function invert(ip::ImagePreprocessing, x)
+    return DataAugmentation.tensortoimage(DataAugmentation.denormalize(x, ip.means, ip.stds))
+end
