@@ -5,6 +5,7 @@ using DataLoaders
 using DataAugmentation
 using FluxTraining
 using LearnBase
+using StaticArrays
 using Parameters
 
 include("./task.jl")
@@ -18,6 +19,16 @@ include("./tasks/imageclassification.jl")
 export
     ImageClassification,
     taskdataset,
-    taskdataloader
+    taskdataloader,
+
+    encode,
+    encodeinput,
+    encodetarget,
+    decodeoutput,
+
+    interpretinput,
+    interprettarget,
+    interpretx,
+    interprety
 
 end

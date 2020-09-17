@@ -6,17 +6,18 @@ IMAGENET_STDS = [0.229, 0.224, 0.225]
 """
     SpatialTransforms(size, [augmentations])
 """
-struct SpatialTransforms
+@with_kw struct SpatialTransforms
     size
-    augmentations
+    augmentations = Identity()
 end
 
-function (spatial::SpatialTransforms)(img::Image; augment = true)
+function (spatial::SpatialTransforms)(image, others...; augment = true)
     tfms = (augment ? RandomResizeCrop : CenterResizeCrop)(spatial.size)
     if augment
         tfms = tfms |> spatial.augmentations
     end
-    return apply(tfms, DataAugmentation.Image(img)) |> itemdata
+    items = makeitems(image, others...)
+    return itemdata.(apply(tfms, items))
 end
 
 
@@ -43,3 +44,22 @@ end
 function invert(ip::ImagePreprocessing, x)
     return DataAugmentation.tensortoimage(DataAugmentation.denormalize(x, ip.means, ip.stds))
 end
+
+
+# Utils
+
+function makeitems(image::Image, others...)
+    bounds = DataAugmentation.makebounds(image)
+    return (
+        DataAugmentation.Image(image, bounds),
+        Tuple(makeitem(other, bounds) for other in others)...
+    )
+end
+
+
+makeitem(img::Image, bounds) = DataAugmentation.Image(img, bounds)
+makeitem(x::Vector{<:SVector}, bounds) =
+    DataAugmentation.Keypoints(x, bounds)
+makeitem(x::Vector{<:Union{Nothing, SVector}}, bounds) =
+    DataAugmentation.Keypoints(x, bounds)
+makeitem(xs::Vector, bounds) = [makeitem(x, bounds) for x in xs]
