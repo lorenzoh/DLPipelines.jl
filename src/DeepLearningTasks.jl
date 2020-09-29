@@ -3,6 +3,7 @@ module DeepLearningTasks
 using Colors
 using DataLoaders
 using DataAugmentation
+using Flux
 using FluxTraining
 using LearnBase
 using StaticArrays
@@ -25,6 +26,8 @@ export
     encodeinput,
     encodetarget,
     decodeoutput,
+
+    predict,
 
     interpretinput,
     interprettarget,

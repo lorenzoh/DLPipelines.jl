@@ -7,17 +7,34 @@ IMAGENET_STDS = [0.229, 0.224, 0.225]
     SpatialTransforms(size, [augmentations])
 """
 @with_kw struct SpatialTransforms
-    size
-    augmentations = Identity()
+    traintfm
+    validtfm
+    inferencetfm
 end
 
-function (spatial::SpatialTransforms)(image, others...; augment = true)
-    tfms = (augment ? RandomResizeCrop : CenterResizeCrop)(spatial.size)
-    if augment
-        tfms = tfms |> spatial.augmentations
+function SpatialTransforms(
+        size;
+        augmentations = Identity(),
+        inferencefactor = 1)
+
+    return SpatialTransforms(
+        RandomResizeCrop(size) |> augmentations,
+        CenterResizeCrop(size),
+        ResizeDivisible(size, divisible = inferencefactor),
+    )
+
+end
+
+function (spatial::SpatialTransforms)(image, others...; augment = true, inference = false)
+    if inference
+        tfm = spatial.inferencetfm
+    elseif augment
+        tfm = spatial.traintfm
+    else
+        tfm = spatial.validtfm
     end
     items = makeitems(image, others...)
-    return itemdata.(apply(tfms, items))
+    return itemdata.(apply(tfm, items))
 end
 
 

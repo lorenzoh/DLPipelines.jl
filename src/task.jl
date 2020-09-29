@@ -63,7 +63,7 @@ abstract type Task{I,O,X,Y} end
 Encode `input` into a representation that a model for `task`
 takes as input.
 """
-function encodeinput(task, input) end
+function encodeinput(task, input; inference = false) end
 
 """
     encodetarget(task, target; augment = false, inference = false) -> y
@@ -81,7 +81,7 @@ that a model for `task` takes in and outputs, respectively.
 If `sample` is a `Tuple` of (input, target), the default behavior is to
 pass them to `encodeinput` and `encodetarget`
 """
-encode(task, (input, target)::Tuple; kwargs...) =
+encode(task, (input, target); kwargs...) =
     (encodeinput(task, input; kwargs...), encodetarget(task, target; kwargs...))
 
 
@@ -98,8 +98,8 @@ function decodeoutput(task, y) end
 function predict(task, model, input; device = cpu, batch = true)
     x = encodeinput(task, input; inference = true)
     xs = device(reshape(x, size(x)..., 1))
-    ŷs = model(xs)
-    return decodeoutput(task, )
+    ŷs = cpu(model(xs))
+    return decodeoutput(task, ŷs[:,:,:,1])
     ŷ -> decodeoutput(task, ŷ)
 
 end
