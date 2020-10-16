@@ -13,7 +13,7 @@ function ImageClassification(
         stds = IMAGENET_STDS,
         C = RGB,
     )
-    spatialtransforms = SpatialTransforms(sz, augmentations)
+    spatialtransforms = SpatialTransforms(sz, augmentations = augmentations)
     imagepreprocessing = ImagePreprocessing(C, means, stds)
     ImageClassification(nclasses, spatialtransforms, imagepreprocessing)
 end
@@ -25,7 +25,7 @@ function encodeinput(
         image::Image;
         inference = false,
         augment = false)
-    return task.spatialtransforms(image; augment) |> task.imagepreprocessing
+    return task.spatialtransforms(image; augment)[1] |> task.imagepreprocessing
 end
 
 

@@ -5,6 +5,7 @@ using DataLoaders
 using DataAugmentation
 using Flux
 using FluxTraining
+using MLDataUtils
 using LearnBase
 using StaticArrays
 using Parameters
