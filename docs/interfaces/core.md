@@ -7,13 +7,18 @@ Then implement the following functions by dispatching on the method.
 
 ## Required functions
 
-- [`encodeinput`](#)`(method, context, input) -> x`
-- [`decodeŷ`](#)`(method, context, ŷ) -> target`
+- [`encodeinput`](#)`(method, context, input) -> x` encodes an input so that it can be fed to a model
+- [`decodeŷ`](#)`(method, context, ŷ) -> target` decodes the output of a model into a target
 - either
-  - [`encode`](#)`(method, context, sample) -> (x, y)` or
+  - [`encode`](#)`(method, context, sample) -> (x, y)` encodes a sample containing input and target so they can be used for a training step
   - [`encodetarget`](#)`(method, context, target) -> y`
+  encodes a target so that it can be compared to a model output using a loss function
 
-Remarks:
+## Optional functions
+
+- [`shouldbatch`](#)`(method)` defines whether the model for a method should take batches of encoded inputs. The default is `true`.
+
+## Remarks
 
 - *What is the `context` argument?*
 

@@ -2,4 +2,6 @@
 
 Find out how to implement custom [`Method`](#)s.
 
-The [core interface](./core.md) for inference and training pipelines.
+[Core interface](./core.md), for inference and training pipelines.
+
+Interpretation interface.

@@ -73,15 +73,15 @@ Encode `target` into a representation that a model for `task` outputs.
 function encodetarget(task, target) end
 
 """
-    encode(task, sample; augment = false, inference = false) -> (x, y)
+    encode(method, context, sample) -> (x, y)
+    encode(method, context, (input, target)) -> (x, y)
 
-Encode a `sample` containing both input and target into representations
-that a model for `task` takes in and outputs, respectively.
+Encode a `sample` containing both input and target .
 
 If `sample` is a `Tuple` of (input, target), the default behavior is to
-pass them to `encodeinput` and `encodetarget`
+pass them to [`encodeinput`](#) and [`encodetarget`](#)
 
-# Remarks
+### Remarks
 
 - *When should I implement `encode` vs. `encodeinput` and `encodetarget`?*
 
@@ -94,32 +94,37 @@ pass them to `encodeinput` and `encodetarget`
 
   Another situation where `encode` is needed is when `sample` is not a tuple of `(input, target)`, for example a `Dict` that includes additional information. `encode` still needs to return an `(x, y)`-tuple, though.
 """
-encode(task, (input, target); kwargs...) =
-    (encodeinput(task, input; kwargs...), encodetarget(task, target; kwargs...))
+encode(method, context, (input, target)::Tuple) =
+    (encodeinput(method, context, input), encodetarget(method, context, target))
 
 
 # Decoding
 
 """
-    decodeoutput(task, y) -> target
+    decodeŷ(method, context, ŷ) -> target
+
+Decodes a model output into a target.
 """
-function decodeoutput(task, y) end
+function decodeŷ(method, context, ŷ) end
 
 
 # Inference
 
+# TODO: refactor to respect `shouldbatch`
 function predict(task, model, input; device = cpu, batch = true)
     x = encodeinput(task, input; inference = true)
     xs = device(reshape(x, size(x)..., 1))
     ŷs = cpu(model(xs))
     return decodeoutput(task, ŷs[:, :, :, 1])
-    ŷ -> decodeoutput(task, ŷ)
-
 end
+
+# TODO: implement
+function predictbatch end
 
 
 # Interpretation
 
+# TODO: refactor and document
 function interpretinput(task, input) end
 function interprettarget(task, target) end
 function interpretx(task, x) end

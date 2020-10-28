@@ -5,6 +5,10 @@ IMAGENET_STDS = [0.229, 0.224, 0.225]
 
 """
     SpatialTransforms(size, [augmentations])
+
+Transformation that resizes images and keypoints to `size`.
+
+In context [`Training`](#), applies `augmentations`.
 """
 @with_kw struct SpatialTransforms
     traintfm

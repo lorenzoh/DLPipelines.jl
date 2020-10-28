@@ -1,4 +1,21 @@
 
+"""
+    ImageClassification(nclasses[; sz, augmentations, ...]) <: Method{ImageClassificationTask}
+
+A [`Method`](#) for multi-class image classification using softmax probabilities.
+
+### Types
+
+- `input::AbstractMatrix{2, <:Colorant}`: an image
+- `target::Int` the category that the image belongs to
+- `x::AbstractArray{Float32, 3}`: a normalized 3D-array with dimensions *height, width, channels*
+- `y::AbstractVector{Float32}`: one-hot encoding of category
+
+### Model
+
+- input size: `(sz..., ch, batch)` where `ch` depends on color type `C`.
+- output size: `(nclasses, batch)`
+"""
 @with_kw mutable struct ImageClassification <: Task{Image, ImageTensor, OneHotVector, Class}
     nclasses::Int
     spatialtransforms::SpatialTransforms = SpatialTransforms()
@@ -22,10 +39,9 @@ end
 
 function encodeinput(
         task::ImageClassification,
-        image::Image;
-        inference = false,
-        augment = false)
-    return task.spatialtransforms(image; augment)[1] |> task.imagepreprocessing
+        context,
+        image)
+    return task.spatialtransforms(context, image)[1] |> task.imagepreprocessing
 end
 
 

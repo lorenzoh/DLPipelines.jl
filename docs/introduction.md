@@ -1,9 +1,6 @@
-# Concepts
+# Introduction
 
-To give context to the rest of the documentation, this page defines the most important concepts
-
-A (supervised) **task** is a learnable mapping from **input**s to **target**s. The learnable part of the mapping is represented by a **model**.
-
+In supervised deep learning, we're usually trying to solve a problem by finding a mapping from some inputs to some targets. Let's call this a *task*. Consider for example this table:
 
 | Task                  | Input | Target             |
 | :-------------------- | :---- | :----------------- |
@@ -12,12 +9,12 @@ A (supervised) **task** is a learnable mapping from **input**s to **target**s. T
 | Object detection      | Image | Bounding boxes     |
 | Text completion       | Text  | Next character     |
 
-A **method** is a concrete way to solve a task and defines how
+There are usually multiple ways to go about solving a task. We call a *method* a concrete approach to a task that has a learnable part (the model) but also defines how
 
 - inputs and targets are *encoded* into a form that can be fed to and output by the model
 - model outputs are *decoded* to obtain target predictions; and
 
-As an example method, consider the commmon way of approaching the task of **image classification**:
+os an example method, consider the commmon way of approaching the task of image classification:
 
 - images are encoded into normalized 3D-Arrays of `Float32`s and categories into one-hot vectors
 - the predicted probability distributions can be decoded into a category by finding the index of the highest score; and
@@ -49,7 +46,7 @@ As a concrete example, consider image classification:
 - `task::ImageClassificationTask`: subtype of `Task`
 - `method::ImageClassification`: subtype of `Method{ImageClassificationTask}`
 - `input::AbstractMatrix{2, <:Colorant}`: an image
-- `target::Int` (the category that the image belongs to)
+- `target::Int` the category that the image belongs to
 - `x::AbstractArray{Float32, 3}`: a normalized 3D-array with dimensions *height, width, channels*
 - `y::AbstractVector{Float32}`: one-hot encoding of category
 - `ŷ::AbstractVector{Float32̂}`: softmax probabilities

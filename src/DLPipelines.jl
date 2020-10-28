@@ -15,7 +15,8 @@ include("./types.jl")
 include("./datautils.jl")
 include("./transforms.jl")
 
-include("./tasks/imageclassification.jl")
+# Method implementations
+include("./methods/imageclassification.jl")
 
 
 export
