@@ -80,6 +80,19 @@ that a model for `task` takes in and outputs, respectively.
 
 If `sample` is a `Tuple` of (input, target), the default behavior is to
 pass them to `encodeinput` and `encodetarget`
+
+# Remarks
+
+- *When should I implement `encode` vs. `encodeinput` and `encodetarget`?*
+
+  In simple cases like image classification we can encode the inputs and
+  targets separately and you should prefer `encodeinput` and `encodetarget`.
+  The default implementation for `encode` when given an `(input, target)`-tuple
+  is to delegate to `encodeinput` and `encodetarget`.
+
+  In other cases like semantic segmentation, however, we want to apply stochastic augmentations to both image and segmentation mask. In that case you need to encode both at the same time using `encode`
+
+  Another situation where `encode` is needed is when `sample` is not a tuple of `(input, target)`, for example a `Dict` that includes additional information. `encode` still needs to return an `(x, y)`-tuple, though.
 """
 encode(task, (input, target); kwargs...) =
     (encodeinput(task, input; kwargs...), encodetarget(task, target; kwargs...))
@@ -99,7 +112,7 @@ function predict(task, model, input; device = cpu, batch = true)
     x = encodeinput(task, input; inference = true)
     xs = device(reshape(x, size(x)..., 1))
     ŷs = cpu(model(xs))
-    return decodeoutput(task, ŷs[:,:,:,1])
+    return decodeoutput(task, ŷs[:, :, :, 1])
     ŷ -> decodeoutput(task, ŷ)
 
 end

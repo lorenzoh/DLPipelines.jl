@@ -1,4 +1,11 @@
 - [Readme](README.md)
-- [Overview](docs/overview.md)
-- [Interface](src/task.jl)
-- [Interface](docs/interface.md)
+- [Concepts](docs/concepts.md)
+- [Usage](docs/usage.md)
+
+### Library
+
+- [Interfaces](docs/interfaces/overview.md)
+  - [Core interface](docs/interfaces/core.md)
+- [Methods](docs/methods.md)
+- [Transforms](docs/transforms.md)
+  
