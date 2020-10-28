@@ -1,7 +1,7 @@
 using Publish
-using DeepLearningTasks
+using DLPipelines
 
-p = Publish.Project(DeepLearningTasks)
+p = Publish.Project(DLPipelines)
 rm("dev", recursive = true, force = true)
 rm(p.env["version"], recursive = true, force = true)
-deploy(DeepLearningTasks; root = "/DeepLearningTasks.jl", force = true, label = "dev")
+deploy(DLPipelines; root = "/DLPipelines.jl", force = true, label = "dev")

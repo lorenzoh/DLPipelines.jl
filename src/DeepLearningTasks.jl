@@ -1,4 +1,4 @@
-module DeepLearningTasks
+module DLPipelines
 
 using Colors
 using DataLoaders

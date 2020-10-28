@@ -1,6 +1,6 @@
-# DeepLearningTasks.jl
+# DLPipelines.jl
 
-*DeepLearningTasks.jl* is an interface for defining deep learning data pipelines. This includes every data transformation before and after the model. That means loading, preprocessing and augmenting the data before feeding it into the model, but also decoding the model's outputs to targets.
+*DLPipelines.jl* is an interface for defining deep learning data pipelines. This includes every data transformation before and after the model. That means loading, preprocessing and augmenting the data before feeding it into the model, but also decoding the model's outputs to targets.
 
 The package was born from the realization that the data pipeline plays a large role in many deep learning projects. It abstracts the pipeline into steps that lend themselves to building training, inference and other pipelines.
 
@@ -29,4 +29,4 @@ As an example method, consider the commmon way of approaching the task of **imag
 
 An additional complication comes from the fact that the encoding and decoding step may differ based on situation. For example, during training we often want to apply some augmentation when encoding that would be detrimental to performance during inference.
 
-Let's look at the interface provided by *DeepLearningTasks.jl* to represent these abstractions.
+Let's look at the interface provided by *DLPipelines.jl* to represent these abstractions.

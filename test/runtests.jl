@@ -1,7 +1,7 @@
-using DeepLearningTasks
+using DLPipelines
 using Test
 
-@testset "DeepLearningTasks.jl" begin
+@testset "DLPipelines.jl" begin
     # Write your tests here.
 end
 1
