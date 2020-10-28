@@ -29,13 +29,13 @@
     <main id="page"><article><div class='docs' id='encode'>
 <p><code>public</code> <code>encode</code> — <code>function</code></p>
 <div class='doc' id='1'>
-<pre><code>encode(task, sample; augment = false, inference = false) -&gt; (x, y)
+<pre><code>encode(method, context, sample) -&gt; (x, y)
+encode(method, context, (input, target)) -&gt; (x, y)
 </code></pre>
-<p>Encode a <code>sample</code> containing both input and target into representations
-that a model for <code>task</code> takes in and outputs, respectively.</p>
+<p>Encode a <code>sample</code> containing both input and target .</p>
 <p>If <code>sample</code> is a <code>Tuple</code> of (input, target), the default behavior is to
-pass them to <code>encodeinput</code> and <code>encodetarget</code></p>
-<h1 id="remarks"><a href="#remarks" class="anchor"></a>Remarks</h1>
+pass them to <a href="DLPipelines.encodeinput.html"><code>encodeinput</code></a> and <a href="DLPipelines.encodetarget.html"><code>encodetarget</code></a></p>
+<h3 id="remarks"><a href="#remarks" class="anchor"></a>Remarks</h3>
 <ul>
 <li>
 <p><em>When should I implement <code>encode</code> vs. <code>encodeinput</code> and <code>encodetarget</code>?</em></p>
@@ -51,13 +51,13 @@ is to delegate to <code>encodeinput</code> and <code>encodetarget</code>.</p>
 </div>
 </article>
         <div id="page-navigation">
-            <a id="previous-page" title="Previous" href="DLPipelines.decodeoutput.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
+            <a id="previous-page" title="Previous" href="DLPipelines.decodeŷ.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
             <a id="next-page" title="Next" href="DLPipelines.encodeinput.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
         </div>
     </main>
     <nav id="toc"><ul>
 <li><a href="../README.html">Readme</a></li>
-<li><a href="../docs/concepts.html">Concepts</a></li>
+<li><a href="../docs/introduction.html">Introduction</a></li>
 <li><a href="../docs/usage.html">Usage</a></li>
 </ul>
 <h3 id="library"><a href="../#library" class="anchor"></a>Library</h3>

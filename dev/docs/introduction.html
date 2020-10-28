@@ -26,16 +26,15 @@
         <input id="search-input" placeholder="Search">
         <select id="version-selector"></select>
     </div>
-    <main id="page"><article><h1 id="concepts"><a href="#concepts" class="anchor"></a>Concepts</h1>
-<p>To give context to the rest of the documentation, this page defines the most important concepts</p>
-<p>A (supervised) <strong>task</strong> is a learnable mapping from <strong>input</strong>s to <strong>target</strong>s. The learnable part of the mapping is represented by a <strong>model</strong>.</p>
+    <main id="page"><article><h1 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>In supervised deep learning, we’re usually trying to solve a problem by finding a mapping from some inputs to some targets. Let’s call this a <em>task</em>. Consider for example this table:</p>
 <table><thead><tr><th align="left">Task</th><th align="left">Input</th><th align="left">Target</th></tr></thead><tbody><tr><td align="left">Image classification</td><td align="left">Image</td><td align="left">Category</td></tr><tr><td align="left">Semantic segmentation</td><td align="left">Image</td><td align="left">Category per pixel</td></tr><tr><td align="left">Object detection</td><td align="left">Image</td><td align="left">Bounding boxes</td></tr><tr><td align="left">Text completion</td><td align="left">Text</td><td align="left">Next character</td></tr></tbody></table>
-<p>A <strong>method</strong> is a concrete way to solve a task and defines how</p>
+<p>There are usually multiple ways to go about solving a task. We call a <em>method</em> a concrete approach to a task that has a learnable part (the model) but also defines how</p>
 <ul>
 <li>inputs and targets are <em>encoded</em> into a form that can be fed to and output by the model</li>
 <li>model outputs are <em>decoded</em> to obtain target predictions; and</li>
 </ul>
-<p>As an example method, consider the commmon way of approaching the task of <strong>image classification</strong>:</p>
+<p>os an example method, consider the commmon way of approaching the task of image classification:</p>
 <ul>
 <li>images are encoded into normalized 3D-Arrays of <code>Float32</code>s and categories into one-hot vectors</li>
 <li>the predicted probability distributions can be decoded into a category by finding the index of the highest score; and</li>
@@ -63,7 +62,7 @@
 <li><code>task::ImageClassificationTask</code>: subtype of <code>Task</code></li>
 <li><code>method::ImageClassification</code>: subtype of <code>Method{ImageClassificationTask}</code></li>
 <li><code>input::AbstractMatrix{2, &lt;:Colorant}</code>: an image</li>
-<li><code>target::Int</code> (the category that the image belongs to)</li>
+<li><code>target::Int</code> the category that the image belongs to</li>
 <li><code>x::AbstractArray{Float32, 3}</code>: a normalized 3D-array with dimensions <em>height, width, channels</em></li>
 <li><code>y::AbstractVector{Float32}</code>: one-hot encoding of category</li>
 <li><code>ŷ::AbstractVector{Float32̂}</code>: softmax probabilities</li>
@@ -94,7 +93,7 @@
     </main>
     <nav id="toc"><ul>
 <li><a href="../README.html">Readme</a></li>
-<li><a href="../docs/concepts.html">Concepts</a></li>
+<li><a href="../docs/introduction.html">Introduction</a></li>
 <li><a href="../docs/usage.html">Usage</a></li>
 </ul>
 <h3 id="library"><a href="../#library" class="anchor"></a>Library</h3>

@@ -1,4 +1,5 @@
 [deps]
+DLDatasets = "eb7515f2-3d1a-4576-a673-d8979fdf546c"
 DLPipelines = "e6530d7c-7faa-4ede-a0d6-9eff9baad396"
 DataAugmentation = "88a5189c-e7ff-4f85-ac6b-e6158070f02e"
 FluxTraining = "7bf95e4d-ca32-48da-9824-f0dc5310474f"

@@ -26,55 +26,18 @@
         <input id="search-input" placeholder="Search">
         <select id="version-selector"></select>
     </div>
-    <main id="page"><article><div class='docs' id='Task'>
-<p><code>private</code> <code>Task</code> — <code>parametric type</code></p>
+    <main id="page"><article><div class='docs' id='decodeŷ'>
+<p><code>private</code> <code>decodeŷ</code> — <code>function</code></p>
 <div class='doc' id='1'>
-<pre><code>Task{I, O, X, Y}
+<pre><code>decodeŷ(method, context, ŷ) -&gt; target
 </code></pre>
-<p>A <code>Task</code></p>
-<p>A <code>Task</code> represents a mapping from high-level
-types <code>I</code> to <code>O</code>. The learnable part of the mapping
-is from types <code>X</code> to <code>Y</code>.</p>
-<pre><code>Inference
-
-     encode       model       decode
-::I -------&gt; ::X ------&gt; ::Y -------&gt; ::O
-
-
-Training step
-
-          encode            lossfn(model(X), Y)
-::(I, 0) -------&gt; ::(X, Y) --------------------&gt; loss
-</code></pre>
-<p>To give an example, image classification is task that
-maps images to classes (represented as a matrix of pixels and
-an integer). As inputs and outputs to the learning algorithm,
-a more optimization-friendly form is used: the image is
-converted to a normalized 3D array with dimensions (h, w, ch)
-and the class is converted to a one-hot encoded vector.</p>
-<p>So, for image classification, we have:</p>
-<pre><code>I = AbstractMatrix{Colorant}  # image
-O = Int
-X = AbstractArray{AbstractFloat, 3}  # (w, h, ch)
-Y = AbstractVector{AbstractFloat}  # one-hot encoded class vector
-
-ImageClassification &lt;: Task{I, O, X, Y}
-</code></pre>
-<p>In this representation, the pieces to build a training
-and inference pipeline can be cleanly separated.</p>
-<p>The first is encoding, i.e. mapping <code>I</code> to <code>X</code> and <code>O</code> to <code>Y</code>.</p>
-<p>The second is decoding, i.e. mapping Y -&gt; O.</p>
-<p>Both of these can highly configurable. For encoding an input image,
-we may want to resizing and some stochastic data augmentation, but
-not during inference.</p>
-<p>Any configuration/hyperparameters should be stored in the <code>Task</code>
-struct which is passed to every method.</p>
+<p>Decodes a model output into a target.</p>
 </div>
 </div>
 </article>
         <div id="page-navigation">
-            <a id="previous-page" title="Previous" href="DLPipelines.SpatialTransforms.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
-            <a id="next-page" title="Next" href="DLPipelines.decodeŷ.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
+            <a id="previous-page" title="Previous" href="DLPipelines.Task.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
+            <a id="next-page" title="Next" href="DLPipelines.encode.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
         </div>
     </main>
     <nav id="toc"><ul>
