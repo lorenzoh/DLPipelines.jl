@@ -20,7 +20,7 @@ jobs:
           version: '1.5'
       - name: Install dependencies
         run: |
-          julia --color=yes --project=. -e 'using Pkg; Pkg.instantiate()'
+          julia --color=yes --project=. -e 'using Pkg; Pkg.add(url="https://github.com/lorenzoh/DataAugmentation.jl"); Pkg.add(url="https://github.com/lorenzoh/DataAugmentation.jl"); Pkg.instantiate()'
       - name: Build and deploy
         run: |
           cd gh-pages
