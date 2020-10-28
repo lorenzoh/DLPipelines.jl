@@ -35,6 +35,18 @@
 that a model for <code>task</code> takes in and outputs, respectively.</p>
 <p>If <code>sample</code> is a <code>Tuple</code> of (input, target), the default behavior is to
 pass them to <code>encodeinput</code> and <code>encodetarget</code></p>
+<h1 id="remarks"><a href="#remarks" class="anchor"></a>Remarks</h1>
+<ul>
+<li>
+<p><em>When should I implement <code>encode</code> vs. <code>encodeinput</code> and <code>encodetarget</code>?</em></p>
+<p>In simple cases like image classification we can encode the inputs and
+targets separately and you should prefer <code>encodeinput</code> and <code>encodetarget</code>.
+The default implementation for <code>encode</code> when given an <code>(input, target)</code>-tuple
+is to delegate to <code>encodeinput</code> and <code>encodetarget</code>.</p>
+<p>In other cases like semantic segmentation, however, we want to apply stochastic augmentations to both image and segmentation mask. In that case you need to encode both at the same time using <code>encode</code></p>
+<p>Another situation where <code>encode</code> is needed is when <code>sample</code> is not a tuple of <code>(input, target)</code>, for example a <code>Dict</code> that includes additional information. <code>encode</code> still needs to return an <code>(x, y)</code>-tuple, though.</p>
+</li>
+</ul>
 </div>
 </div>
 </article>
@@ -45,9 +57,18 @@ pass them to <code>encodeinput</code> and <code>encodetarget</code></p>
     </main>
     <nav id="toc"><ul>
 <li><a href="../README.html">Readme</a></li>
-<li><a href="../docs/overview.html">Overview</a></li>
-<li><a href="../src/task.html">Interface</a></li>
-<li><a href="../docs/interface.html">Interface</a></li>
+<li><a href="../docs/concepts.html">Concepts</a></li>
+<li><a href="../docs/usage.html">Usage</a></li>
+</ul>
+<h3 id="library"><a href="../#library" class="anchor"></a>Library</h3>
+<ul>
+<li><a href="../docs/interfaces/overview.html">Interfaces</a>
+<ul>
+<li><a href="../docs/interfaces/core.html">Core interface</a></li>
+</ul>
+</li>
+<li><a href="../docs/methods.html">Methods</a></li>
+<li><a href="../docs/transforms.html">Transforms</a></li>
 </ul>
 </nav>
     <footer>
