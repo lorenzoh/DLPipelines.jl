@@ -60,9 +60,8 @@ p {
 code.hljs {
     padding-top: 5px;
     padding-bottom: 5px;
-    border-left: solid 1px lightgray;
     background-color: #ffffff;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 blockquote {

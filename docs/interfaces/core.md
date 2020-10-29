@@ -22,7 +22,7 @@ Then implement the following functions by dispatching on the method.
 
 - *What is the `context` argument?*
 
-  We often want to apply data augmentation during training but not during validation or inference. You can dispatch on `context` to define different behavior for the different situations. See [`PipelineContext`](#) to see the available options.
+  We often want to apply data augmentation during training but not during validation or inference. You can dispatch on `context` to define different behavior for the different situations. See [`Context`](#) to see the available options.
 
 - *When should I implement `encode` vs. `encodetarget`?* 
 

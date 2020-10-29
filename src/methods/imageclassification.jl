@@ -1,4 +1,7 @@
 
+abstract type ImageClassificationTask <: Task end
+
+
 """
     ImageClassification(nclasses[; sz, augmentations, ...]) <: Method{ImageClassificationTask}
 
@@ -16,7 +19,7 @@ A [`Method`](#) for multi-class image classification using softmax probabilities
 - input size: `(sz..., ch, batch)` where `ch` depends on color type `C`.
 - output size: `(nclasses, batch)`
 """
-@with_kw mutable struct ImageClassification <: Task{Image, ImageTensor, OneHotVector, Class}
+@with_kw mutable struct ImageClassification <: Method{ImageClassificationTask}
     nclasses::Int
     spatialtransforms::SpatialTransforms = SpatialTransforms()
     imagepreprocessing::ImagePreprocessing = ImagePreprocessing()
@@ -47,24 +50,24 @@ end
 
 function encodeoutput(
         task::ImageClassification,
-        class::Class;
+        class;
         inference = false,
         augment = false)
     return onehotencode(class, task.nclasses)
 end
 
 
-encodetarget(task::ImageClassification, class::Class; kwargs...) =
+encodetarget(task::ImageClassification, class; kwargs...) =
     DataAugmentation.onehot(class, 1:task.nclasses)
 
 decodeoutput(task::ImageClassification, ŷ) = argmax(ŷ)
 
-interpretinput(task::ImageClassification, image::Image) = image
+interpretinput(task::ImageClassification, image) = image
 
 function interpretx(task::ImageClassification, x)
     return invert(task.imagepreprocessing, x)
 end
 
-function interprettarget(task::ImageClassification, class::Class)
+function interprettarget(task::ImageClassification, class)
     return "Class $class"
 end
