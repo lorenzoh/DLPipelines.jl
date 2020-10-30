@@ -47,12 +47,9 @@ using LearnBase: getobs
 <pre><code cell="main" class="language-julia">image, category = getobs(dataset, 4000)
 image
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n03028079/n03028079_16133.JPEG&quot;.
-
-Fatal error:
+<img src="1814092769795876915.png" alt="" /><pre><code style="display:none;" cell="main" result="false" class="language-julia">@show category
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, ArgumentError(&quot;Package ImageMagick not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;ImageMagick\&quot;)` to install the ImageMagick package.\n&quot;))</code></pre>
-<pre><code style="display:none;" cell="main" result="false" class="language-julia">@show category
+<pre><code class="plaintext cell-output cell-stream">category = &quot;church&quot;
 </code></pre>
 <p>We can also retrieve the 10 different categories from the dataset’s metadata:</p>
 <pre><code cell="main" class="language-julia">categories = DLDatasets.metadata(ImageNette).labels
@@ -80,22 +77,28 @@ The image is encoded as a normalized 3D-array:</p>
 <pre><code cell="main" class="language-julia">x = encodeinput(method, Training(), image)
 summary(x)
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:image))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">&quot;128×128×3 Array{Float32,3}&quot;</code></pre>
 <p>And the category is one-hot encoded:</p>
 <pre><code cell="main" class="language-julia">y = encodetarget(method, Training(), category)
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:category))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">10-element Array{Float32,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 1.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0</code></pre>
 <p>You can also use <a href="../../docstrings/DLPipelines.MethodDataset.html"><code>MethodDataset</code></a> to create a wrapper around your existing dataset
 that directly returns encoded observations:</p>
 <pre><code cell="main" class="language-julia">methoddataset = MethodDataset(dataset, method, Training())
 x, y = getobs(methoddataset, 1)
 summary.((x, y))
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n01440764/ILSVRC2012_val_00000293.JPEG&quot;.
-
-Fatal error:
-</code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 2, ArgumentError(&quot;Package ImageMagick not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;ImageMagick\&quot;)` to install the ImageMagick package.\n&quot;))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">(&quot;128×128×3 Array{Float32,3}&quot;, &quot;10-element Array{Float32,1}&quot;)</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="methods.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>

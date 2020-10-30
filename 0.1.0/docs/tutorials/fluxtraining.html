@@ -97,11 +97,7 @@ images in <code>validdataset</code> will always be cropped from the center.</p>
 <pre><code cell="main" class="language-julia">x, y = getobs(traindataset, 1)
 summary.((x, y))
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n01440764/ILSVRC2012_val_00000293.JPEG&quot;.
-
-Fatal error:
-</code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, ArgumentError(&quot;Package ImageMagick not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;ImageMagick\&quot;)` to install the ImageMagick package.\n&quot;))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">(&quot;128×128×3 Array{Float32,3}&quot;, &quot;10-element Array{Float32,1}&quot;)</code></pre>
 <p>To finally get an iterator over batches, we can use <code>DataLoader</code> from
 <a href="https://lorenzoh.github.io/DataLoaders.jl/dev/README.html">*DataLoaders.jl</a>.</p>
 <p>It will also make sure to prefetch the data on background threads so that
@@ -110,14 +106,10 @@ the training loop isn’t slowed down waiting for the next batch of data.</p>
 traindl = DataLoader(traindataset, batchsize)
 validdl = DataLoader(validdataset, batchsize)
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n01440764/ILSVRC2012_val_00000293.JPEG&quot;.
-
-Fatal error:
-</code></pre>
 <p>Now we can create a <code>Learner</code>:</p>
 <pre><code cell="main" class="language-julia">learner = Learner(model, (traindl, validdl), optimizer, lossfn)
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:traindl))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">Learner()</code></pre>
 <p>You can pass any number of
 <a href="https://lorenzoh.github.io/FluxTraining.jl/dev/docs/callbacks/reference.html">callbacks</a>
 to <code>Learner</code>, for example <code>ToGPU()</code> to utilize your GPU when training.</p>

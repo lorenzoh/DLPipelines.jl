@@ -115,137 +115,16 @@ end
     end
 end
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">
-=====================================================
-image: Error During Test at string:11
-  Got exception outside of a @test
-  MethodError: no method matching getbounds(::Array{ColorTypes.RGB{Float64},2})
-  Closest candidates are:
-    getbounds(!Matched::DataAugmentation.Image) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:3
-    getbounds(!Matched::DataAugmentation.Keypoints) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:4
-    getbounds(!Matched::DataAugmentation.ItemWrapper) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:5
-  Stacktrace:
-   [1] makespatialitems(::Tuple{Array{ColorTypes.RGB{Float64},2}}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:47
-   [2] (::SpatialTransforms)(::Training, ::Tuple{Array{ColorTypes.RGB{Float64},2}}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:34
-   [3] (::SpatialTransforms)(::Training, ::Array{ColorTypes.RGB{Float64},2}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:39
-   [4] top-level scope at string:16
-   [5] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
-   [6] top-level scope at string:12
-   [7] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
-   [8] top-level scope at string:11
-   [9] include_string(::Function, ::Module, ::String, ::String) at ./loading.jl:1088
-   [10] include_string at ./loading.jl:1096 [inlined] (repeats 2 times)
-   [11] #43 at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:77 [inlined]
-   [12] (::Publish.var&quot;#48#49&quot;{Publish.var&quot;#43#44&quot;{Publish.Cell,Module},Base.PipeEndpoint,Base.PipeEndpoint,Pipe,Array{UInt8,1}})() at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:185
-   [13] with_logstate(::Function, ::Any) at ./logging.jl:408
-   [14] with_logger at ./logging.jl:514 [inlined]
-   [15] capture_output at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:183 [inlined]
-   [16] display_as(::typeof(CommonMark.write_html), ::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::Array{MIME,1}) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:76
-   [17] write_html(::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node, ::Bool) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:211
-   [18] write_html(::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:34
-   [19] show(::Base.GenericIOBuffer{Array{UInt8,1}}, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:5
-   [20] sprint(::Function, ::MIME{Symbol(&quot;text/html&quot;)}, ::Vararg{Any,N} where N; context::Nothing, sizehint::Int64) at ./strings/io.jl:105
-   [21] sprint at ./strings/io.jl:101 [inlined]
-   [22] writer(::IOStream, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:15
-   [23] writer at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:5 [inlined]
-   [24] html at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:8 [inlined]
-   [25] #59 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:70 [inlined]
-   [26] open(::Publish.var&quot;#59#64&quot;{Dict{String,Any},Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
-   [27] open at ./io.jl:323 [inlined]
-   [28] #58 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:67 [inlined]
-   [29] cd(::Publish.var&quot;#58#63&quot;{Dict{String,Any},String,Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String) at ./file.jl:104
-   [30] (::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String})(::Dict{String,Any}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:66
-   [31] relative_paths(::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String}, ::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:188
-   [32] relative_paths at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:190 [inlined]
-   [33] _html(::Publish.Project, ::CommonMark.Node, ::FilePathsBase.PosixPath, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:62
-   [34] _html(::Publish.Project, ::FileTrees.FileTree, ::FileTrees.File, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:48
-   [35] (::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project})(::FileTrees.File) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
-   [36] save(::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project}, ::FileTrees.FileTree) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:16
-   [37] (::Publish.var&quot;#51#53&quot;{Publish.Project})() at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
-   [38] cd(::Publish.var&quot;#51#53&quot;{Publish.Project}, ::String) at ./file.jl:104
-   [39] sandbox at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:12 [inlined]
-   [40] html(::Publish.Project, ::String; keywords::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:31
-   [41] html(::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:27
-   [42] deploy(::Module, ::String, ::typeof(html); versioned::Bool, named::Bool, force::Bool, label::String, root::String, kws::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/deploy.jl:91
-   [43] top-level scope at /home/runner/work/DLPipelines.jl/DLPipelines.jl/docs/make.jl:7
-   [44] include(::Function, ::Module, ::String) at ./Base.jl:380
-   [45] include(::Module, ::String) at ./Base.jl:368
-   [46] exec_options(::Base.JLOptions) at ./client.jl:296
-   [47] _start() at ./client.jl:506
-  
-=====================================================
-...
-=====================================================
-image and keypoints: Error During Test at string:48
-  Got exception outside of a @test
-  MethodError: no method matching getbounds(::Array{ColorTypes.RGB{Float64},2})
-  Closest candidates are:
-    getbounds(!Matched::DataAugmentation.Image) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:3
-    getbounds(!Matched::DataAugmentation.Keypoints) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:4
-    getbounds(!Matched::DataAugmentation.ItemWrapper) at /home/runner/.julia/packages/DataAugmentation/aHMcg/src/spatial/affine.jl:5
-  Stacktrace:
-   [1] makespatialitems(::Tuple{Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:47
-   [2] (::SpatialTransforms)(::Training, ::Tuple{Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:34
-   [3] (::Main.anonymous.var&quot;#2#8&quot;{SpatialTransforms,Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}})() at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:633
-   [4] redirect_stderr(::Main.anonymous.var&quot;#2#8&quot;{SpatialTransforms,Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}}, ::IOStream) at ./stream.jl:1150
-   [5] (::Main.anonymous.var&quot;#1#7&quot;{SpatialTransforms,Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}})(::IOStream) at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:632
-   [6] open(::Main.anonymous.var&quot;#1#7&quot;{SpatialTransforms,Array{ColorTypes.RGB{Float64},2},Array{StaticArrays.SArray{Tuple{2},Int64,1,2},1}}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
-   [7] open(::Function, ::String, ::String) at ./io.jl:323
-   [8] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:631
-   [9] top-level scope at string:53
-   [10] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
-   [11] top-level scope at string:49
-   [12] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
-   [13] top-level scope at string:11
-   [14] include_string(::Function, ::Module, ::String, ::String) at ./loading.jl:1088
-   [15] include_string at ./loading.jl:1096 [inlined] (repeats 2 times)
-   [16] #43 at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:77 [inlined]
-   [17] (::Publish.var&quot;#48#49&quot;{Publish.var&quot;#43#44&quot;{Publish.Cell,Module},Base.PipeEndpoint,Base.PipeEndpoint,Pipe,Array{UInt8,1}})() at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:185
-   [18] with_logstate(::Function, ::Any) at ./logging.jl:408
-   [19] with_logger at ./logging.jl:514 [inlined]
-   [20] capture_output at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:183 [inlined]
-   [21] display_as(::typeof(CommonMark.write_html), ::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::Array{MIME,1}) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:76
-   [22] write_html(::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node, ::Bool) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:211
-   [23] write_html(::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:34
-   [24] show(::Base.GenericIOBuffer{Array{UInt8,1}}, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:5
-   [25] sprint(::Function, ::MIME{Symbol(&quot;text/html&quot;)}, ::Vararg{Any,N} where N; context::Nothing, sizehint::Int64) at ./strings/io.jl:105
-   [26] sprint at ./strings/io.jl:101 [inlined]
-   [27] writer(::IOStream, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:15
-   [28] writer at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:5 [inlined]
-   [29] html at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:8 [inlined]
-   [30] #59 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:70 [inlined]
-   [31] open(::Publish.var&quot;#59#64&quot;{Dict{String,Any},Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
-   [32] open at ./io.jl:323 [inlined]
-   [33] #58 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:67 [inlined]
-   [34] cd(::Publish.var&quot;#58#63&quot;{Dict{String,Any},String,Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String) at ./file.jl:104
-   [35] (::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String})(::Dict{String,Any}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:66
-   [36] relative_paths(::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String}, ::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:188
-   [37] relative_paths at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:190 [inlined]
-   [38] _html(::Publish.Project, ::CommonMark.Node, ::FilePathsBase.PosixPath, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:62
-   [39] _html(::Publish.Project, ::FileTrees.FileTree, ::FileTrees.File, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:48
-   [40] (::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project})(::FileTrees.File) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
-   [41] save(::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project}, ::FileTrees.FileTree) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:16
-   [42] (::Publish.var&quot;#51#53&quot;{Publish.Project})() at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
-   [43] cd(::Publish.var&quot;#51#53&quot;{Publish.Project}, ::String) at ./file.jl:104
-   [44] sandbox at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:12 [inlined]
-   [45] html(::Publish.Project, ::String; keywords::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:31
-   [46] html(::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:27
-   [47] deploy(::Module, ::String, ::typeof(html); versioned::Bool, named::Bool, force::Bool, label::String, root::String, kws::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/deploy.jl:91
-   [48] top-level scope at /home/runner/work/DLPipelines.jl/DLPipelines.jl/docs/make.jl:7
-   [49] include(::Function, ::Module, ::String) at ./Base.jl:380
-   [50] include(::Module, ::String) at ./Base.jl:368
-   [51] exec_options(::Base.JLOptions) at ./client.jl:296
-  
-=====================================================
+<pre><code class="plaintext cell-output cell-stream">...........
 
+Test Summary:       | Pass  Total
+`SpatialTransforms` |   11     11
+.....
 
-Test Summary:         | Pass  Error  Total
-`SpatialTransforms`   |    3      2      5
-  image               |           1      1
-  keypoints           |    3             3
-  image and keypoints |           1      1
+Test Summary:         | Pass  Total
+`ImageClassification` |    5      5
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 10, Some tests did not pass: 3 passed, 0 failed, 2 errored, 0 broken.)</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">Test.DefaultTestSet(&quot;`ImageClassification`&quot;, Any[Test.DefaultTestSet(&quot;Core interface&quot;, Any[Test.DefaultTestSet(&quot;`encodeinput`&quot;, Any[], 4, false), Test.DefaultTestSet(&quot;`encodetarget`&quot;, Any[], 0, false), Test.DefaultTestSet(&quot;`encode`&quot;, Any[], 1, false)], 0, false)], 0, false)</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="..&#x2F;src&#x2F;methods&#x2F;imageclassification.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
