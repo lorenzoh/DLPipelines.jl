@@ -18,7 +18,7 @@ using Parameters
 
 # [`task.jl`](./task.jl) defines the [task and method interface](../docs/interfaces/core.md).
 include("./task.jl") #src
-export Task, Method, encode, encodeinput, encodetarget
+export Task, Method, Context, Training, Validation, Inference, encode, encodeinput, encodetarget
 # [`api.jl`](/api.jl) defines the user-facing functions.
 export dataiter, predict
 #

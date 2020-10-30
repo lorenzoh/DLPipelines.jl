@@ -29,31 +29,39 @@ function SpatialTransforms(
 
 end
 
-function (spatial::SpatialTransforms)(image, others...; augment = true, inference = false)
-    if inference
-        tfm = spatial.inferencetfm
-    elseif augment
-        tfm = spatial.traintfm
-    else
-        tfm = spatial.validtfm
-    end
-    items = makeitems(image, others...)
+
+function (spatial::SpatialTransforms)(context, datas::Tuple)
+    items = makespatialitems(datas)
+    tfm = _gettfm(spatial, context)
     return itemdata.(apply(tfm, items))
 end
 
+(spatial::SpatialTransforms)(context, data) = spatial(context, (data,)) |> only
 
-function makeitems(image::Image, others...)
-    bounds = DataAugmentation.makebounds(image)
-    return (
-        DataAugmentation.Image(image, bounds),
-        Tuple(makeitem(other, bounds) for other in others)...
-    )
+
+_gettfm(spatial::SpatialTransforms, context::Training) = spatial.traintfm
+_gettfm(spatial::SpatialTransforms, context::Validation) = spatial.validtfm
+_gettfm(spatial::SpatialTransforms, context::Inference) = spatial.inferencetfm
+
+
+makespatialitems(datas::Tuple) = makespatialitems(datas, getbounds(first(datas)))
+function makespatialitems(datas::Tuple, bounds)
+    return Tuple(makeitem(data, bounds) for data in datas)
 end
 
 
-makeitem(img::Image, bounds) = DataAugmentation.Image(img, bounds)
-makeitem(x::Vector{<:SVector}, bounds) =
-    DataAugmentation.Keypoints(x, bounds)
-makeitem(x::Vector{<:Union{Nothing, SVector}}, bounds) =
-    DataAugmentation.Keypoints(x, bounds)
-makeitem(xs::Vector, bounds) = [makeitem(x, bounds) for x in xs]
+"""
+    makeitem(data, args...)
+
+Tries to assign a `DataAugmentation.Item` from `data` based on its type.
+`args` are passed to the chosen  `Item` constructor.
+
+- `AbstractMatrix{<:Colorant}` -> `Image`
+- `Vector{<:Union{Nothing, SVector}}` -> `Keypoints`
+"""
+makeitem(data, args...) = itemtype(data)(data, args...)
+makeitem(item::Item, args...) = item
+
+
+itemtype(data::AbstractMatrix{<:Colorant}) = DataAugmentation.Image
+itemtype(data::Vector{<:Union{Nothing, SVector}}) = DataAugmentation.Keypoints

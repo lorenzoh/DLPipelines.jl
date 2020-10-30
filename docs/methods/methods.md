@@ -2,4 +2,4 @@
 
 *DLPipelines.jl* comes with some [`Method`](#)s already implemented.
 
-- [`ImageClassification`](./imageclassification.md)
+- [`ImageClassification`](./imageclassification.jl)

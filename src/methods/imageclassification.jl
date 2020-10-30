@@ -3,9 +3,16 @@ abstract type ImageClassificationTask <: Task end
 
 
 """
-    ImageClassification(nclasses[; sz, augmentations, ...]) <: Method{ImageClassificationTask}
+    ImageClassification(categories, [; sz, augmentations, ...]) <: Method{ImageClassificationTask}
+    ImageClassification(n, ...)
 
 A [`Method`](#) for multi-class image classification using softmax probabilities.
+
+`categories` is a vector of the category labels. Alternatively, you can pass an integer.
+Images are resized to `sz`.
+
+During training, a random crop is used and `augmentations`, a `DataAugmentation.Transform`
+are applied.
 
 ### Types
 
@@ -20,13 +27,13 @@ A [`Method`](#) for multi-class image classification using softmax probabilities
 - output size: `(nclasses, batch)`
 """
 @with_kw mutable struct ImageClassification <: Method{ImageClassificationTask}
-    nclasses::Int
+    categories::AbstractVector
     spatialtransforms::SpatialTransforms = SpatialTransforms()
     imagepreprocessing::ImagePreprocessing = ImagePreprocessing()
 end
 
 function ImageClassification(
-        nclasses::Int;
+        categories::AbstractVector;
         sz = (224, 224),
         augmentations = Identity(),
         means = IMAGENET_MEANS,
@@ -35,32 +42,33 @@ function ImageClassification(
     )
     spatialtransforms = SpatialTransforms(sz, augmentations = augmentations)
     imagepreprocessing = ImagePreprocessing(C, means, stds)
-    ImageClassification(nclasses, spatialtransforms, imagepreprocessing)
+    ImageClassification(categories, spatialtransforms, imagepreprocessing)
 end
 
+ImageClassification(n::Int, args...; kwargs...) = ImageClassification(1:n, args...; kwargs...)
 
+
+# core interface implementation
 
 function encodeinput(
-        task::ImageClassification,
+        method::ImageClassification,
         context,
         image)
-    return task.spatialtransforms(context, image)[1] |> task.imagepreprocessing
+    imagecropped = method.spatialtransforms(context, image)
+    x = method.imagepreprocessing(imagecropped)
+    return x
 end
 
 
-function encodeoutput(
-        task::ImageClassification,
-        class;
-        inference = false,
-        augment = false)
-    return onehotencode(class, task.nclasses)
+function encodetarget(
+        method::ImageClassification,
+        context,
+        category)
+    idx = findfirst(isequal(category), method.categories)
+    return DataAugmentation.onehot(category, length(method.categories))
 end
 
-
-encodetarget(task::ImageClassification, class; kwargs...) =
-    DataAugmentation.onehot(class, 1:task.nclasses)
-
-decodeoutput(task::ImageClassification, ŷ) = argmax(ŷ)
+decodeŷ(method::ImageClassification, context, ŷ) = method.categories[argmax(ŷ)]
 
 interpretinput(task::ImageClassification, image) = image
 

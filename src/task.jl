@@ -22,7 +22,7 @@ abstract type Task end
 Represents a concrete approach for solving a
 [`Task`](#).
 
-See [core interface](../docs/interface/core.md) for more on
+See [core interface](../docs/interfaces/core.md) for more on
 how to implement custom `Method`s
 """
 abstract type Method{Task} end
