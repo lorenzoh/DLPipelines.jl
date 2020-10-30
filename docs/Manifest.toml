@@ -219,6 +219,12 @@ git-tree-sha1 = "f2be642d7a94e7f0cabcd2106fee4c6715d452d1"
 uuid = "124859b0-ceae-595e-8997-d05f6a7a8dfe"
 version = "0.7.2"
 
+[[DataLoaders]]
+deps = ["DocStringExtensions", "LearnBase", "MLDataPattern", "Parameters", "Random", "ThreadPools"]
+git-tree-sha1 = "09eb4a5e9007bd21e0bf6d85dc7d2e61ab34bfdf"
+uuid = "2e981812-ef13-4a9c-bfa0-ab13047b12a9"
+version = "0.1.0"
+
 [[DataStructures]]
 deps = ["InteractiveUtils", "OrderedCollections"]
 git-tree-sha1 = "88d48e133e6d3dd68183309877eac74393daa7eb"
@@ -233,6 +239,11 @@ version = "1.0.0"
 [[Dates]]
 deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
+
+[[DeepDiffs]]
+git-tree-sha1 = "9824894295b62a6a4ab6adf1c7bf337b3a9ca34c"
+uuid = "ab62b9b5-e342-54a8-a765-a90f495de1a6"
+version = "1.2.0"
 
 [[DelimitedFiles]]
 deps = ["Mmap"]
@@ -338,6 +349,14 @@ deps = ["AbstractTrees", "Adapt", "CUDA", "CodecZlib", "Colors", "DelimitedFiles
 git-tree-sha1 = "ceb09ce8510ef31fd86a791bbd0e1d72a60f27d7"
 uuid = "587475ba-b771-5e3f-ad9e-33799f191a9c"
 version = "0.11.1"
+
+[[FluxModels]]
+deps = ["DocStringExtensions", "Flux", "LinearAlgebra", "ModelUtils", "Parameters"]
+git-tree-sha1 = "ed7b84e77d745a17aff1624415e6bbba3e302ff8"
+repo-rev = "master"
+repo-url = "https://github.com/lorenzoh/FluxModels.jl"
+uuid = "e26eb721-c8f4-421b-a64f-b383a566ead7"
+version = "0.1.0"
 
 [[FluxTraining]]
 deps = ["Animations", "BSON", "DataStructures", "DocStringExtensions", "Flux", "Glob", "LightGraphs", "OnlineStats", "Parameters", "ProgressMeter", "Statistics", "TensorBoardLogger", "UUIDs", "ValueHistories", "Zygote"]
@@ -548,9 +567,10 @@ uuid = "929cbde3-209d-540e-8aea-75f648917ca0"
 version = "2.0.0"
 
 [[LearnBase]]
-git-tree-sha1 = "a0d90569edd490b82fdc4dc078ea54a5a800d30a"
+deps = ["LinearAlgebra", "StatsBase"]
+git-tree-sha1 = "47e6f4623c1db88570c7a7fa66c6528b92ba4725"
 uuid = "7f8f8fb0-2700-5f03-b4bd-41f8cfc144b6"
-version = "0.4.1"
+version = "0.3.0"
 
 [[LibGit2]]
 deps = ["Printf"]
@@ -589,6 +609,18 @@ deps = ["IntelOpenMP_jll", "Libdl", "Pkg"]
 git-tree-sha1 = "eb540ede3aabb8284cb482aa41d00d6ca850b1f8"
 uuid = "856f044c-d86e-5d09-b602-aeab76dc8ba7"
 version = "2020.2.254+0"
+
+[[MLDataPattern]]
+deps = ["LearnBase", "MLLabelUtils", "Random", "SparseArrays", "StatsBase"]
+git-tree-sha1 = "e99514e96e8b8129bb333c69e063a56ab6402b5b"
+uuid = "9920b226-0b2a-5f5f-9153-9aa70a013f8b"
+version = "0.5.4"
+
+[[MLLabelUtils]]
+deps = ["LearnBase", "MappedArrays", "StatsBase"]
+git-tree-sha1 = "8072734dd95d18646fb5d7bdefd1c009a9771bc8"
+uuid = "66a33bbf-0c2b-5fc8-a008-9da813334f0a"
+version = "0.5.4"
 
 [[MacroTools]]
 deps = ["Markdown", "Random"]
@@ -638,11 +670,19 @@ version = "0.4.4"
 [[Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
+[[ModelUtils]]
+deps = ["AbstractTrees", "Flux", "Statistics", "Zygote"]
+git-tree-sha1 = "2eda378073e1ccc47d5cff58613d0e3dbbae803a"
+repo-rev = "master"
+repo-url = "https://github.com/lorenzoh/ModelUtils.jl"
+uuid = "fa899593-fe74-450d-a78c-2ae6a880e080"
+version = "0.1.0"
+
 [[MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews"]
-git-tree-sha1 = "29d121f9e7a6cf081278029121ed90e1f3b33de8"
+git-tree-sha1 = "614e8d77264d20c1db83661daadfab38e8e4b77e"
 uuid = "e94cdb99-869f-56ef-bcf0-1ae2bcbe0389"
-version = "0.2.3"
+version = "0.2.4"
 
 [[MuladdMacro]]
 git-tree-sha1 = "c6190f9a7fc5d9d5915ab29f2134421b12d24a68"
@@ -843,9 +883,9 @@ version = "0.10.3"
 
 [[StaticArrays]]
 deps = ["LinearAlgebra", "Random", "Statistics"]
-git-tree-sha1 = "016d1e1a00fabc556473b07161da3d39726ded35"
+git-tree-sha1 = "da4cf579416c81994afd6322365d00916c79b8ae"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "0.12.4"
+version = "0.12.5"
 
 [[Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
@@ -896,6 +936,18 @@ version = "0.1.11"
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[[TestSetExtensions]]
+deps = ["DeepDiffs", "Distributed", "Test"]
+git-tree-sha1 = "3a2919a78b04c29a1a57b05e1618e473162b15d0"
+uuid = "98d24dd4-01ad-11ea-1b02-c9a08f80db04"
+version = "2.0.0"
+
+[[ThreadPools]]
+deps = ["Printf", "RecipesBase", "Statistics"]
+git-tree-sha1 = "4809b7746342115d4e20c4ccd1a34b52967cb43d"
+uuid = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
+version = "1.1.3"
 
 [[TiledIteration]]
 deps = ["OffsetArrays"]

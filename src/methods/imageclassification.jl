@@ -1,9 +1,8 @@
 
 abstract type ImageClassificationTask <: Task end
 
-
 """
-    ImageClassification(categories, [; sz, augmentations, ...]) <: Method{ImageClassificationTask}
+    ImageClassification(categories; [sz, augmentations, ...]) <: Method{ImageClassificationTask}
     ImageClassification(n, ...)
 
 A [`Method`](#) for multi-class image classification using softmax probabilities.
@@ -26,11 +25,14 @@ are applied.
 - input size: `(sz..., ch, batch)` where `ch` depends on color type `C`.
 - output size: `(nclasses, batch)`
 """
-@with_kw mutable struct ImageClassification <: Method{ImageClassificationTask}
+mutable struct ImageClassification <: Method{ImageClassificationTask}
     categories::AbstractVector
-    spatialtransforms::SpatialTransforms = SpatialTransforms()
-    imagepreprocessing::ImagePreprocessing = ImagePreprocessing()
+    spatialtransforms::SpatialTransforms
+    imagepreprocessing::ImagePreprocessing
 end
+
+Base.show(io::IO, method::ImageClassification) = print(
+    io, "ImageClassification() with $(length(method.categories)) categories.")
 
 function ImageClassification(
         categories::AbstractVector;

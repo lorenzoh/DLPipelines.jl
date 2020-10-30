@@ -18,9 +18,8 @@ using Parameters
 
 # [`task.jl`](./task.jl) defines the [task and method interface](../docs/interfaces/core.md).
 include("./task.jl") #src
-export Task, Method, Context, Training, Validation, Inference, encode, encodeinput, encodetarget
-# [`api.jl`](/api.jl) defines the user-facing functions.
-export dataiter, predict
+export Task, Method, Context, Training, Validation, Inference,
+    encode, encodeinput, encodetarget
 #
 # The transforms are defined under `transforms/`:
 # - [`transforms/spatial.jl`](transforms/spatial.jl)
@@ -28,7 +27,16 @@ export dataiter, predict
 include("./transforms/spatial.jl")  #src
 include("./transforms/imagepreprocessing.jl")  #src
 export SpatialTransforms, ImagePreprocessing
-#
+
+# [`dataset.jl`](./dataset.jl)
+
+include("./dataset.jl")  #src
+export MethodDataset
+
+## TODO: [`inference.jl`](./inference.jl)
+
+include("./inference.jl")  #src
+
 # The [`Method`](#) implementations live under `methods/`:
 # - [`methods/imageclassification.jl`](./methods/imageclassification.jl)
 include("./methods/imageclassification.jl")  #src

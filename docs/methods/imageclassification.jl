@@ -7,9 +7,10 @@
 # image classification dataset. Install the package using
 #
 #   `]add https://github.com/lorenzoh/DLDatasets.jl`
-# {cell=main style="display:none"}
+# {cell=main style="display:none" result=false}
 
-ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"  #src
+ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"
+ENV["CI"] = "false"
 
 # {cell=main}
 
@@ -20,11 +21,11 @@ using LearnBase: getobs
 # With the packages imported, loading the dataset is straightforward:
 # {cell=main}
 
-ds = DLDatasets.loaddataset(ImageNette, "v2_160px")
+dataset = DLDatasets.loaddataset(ImageNette, "v2_160px")
 
 # As you can see, every observation consists of an image and a category label:
 # {cell=main}
-image, category = getobs(ds, 1)
+image, category = getobs(dataset, 4000)
 image
 # {cell=main, result = false style="display:none;"}
 @show category
@@ -42,7 +43,7 @@ categories = DLDatasets.metadata(ImageNette).labels
 # returns an image and a category.
 # {cell=main}
 
-method = ImageClassification(categories)
+method = ImageClassification(categories, sz = (128, 128))
 
 # We can now use this `method` with a [`Context`](#) to transform the data.
 # The image is encoded as a normalized 3D-array:
@@ -56,8 +57,10 @@ summary(x)
 
 y = encodetarget(method, Training(), category)
 
-# [`dataiter`](#) will create a data iterator over batches of properly encoded inputs and targets:
+# You can also use [`MethodDataset`](#) to create a wrapper around your existing dataset
+# that directly returns encoded observations:
 # {cell=main}
 
-traindata = dataiter(method, ds, Training(), 16)
-summary.(first(traindata))
+methoddataset = MethodDataset(dataset, method, Training())
+x, y = getobs(methoddataset, 1)
+summary.((x, y))

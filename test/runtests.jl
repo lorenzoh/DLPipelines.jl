@@ -1,14 +1,11 @@
+# {cell=main}
 using DLPipelines
 using DataAugmentation
 using DLPipelines: Training, Validation, Inference
-using Images
+using Colors: RGB
 using Test
 using TestSetExtensions
 using StaticArrays
-
-@testset "DLPipelines.jl" begin
-    # Write your tests here.
-end
 
 
 @testset ExtendedTestSet "`SpatialTransforms`" begin
@@ -16,7 +13,7 @@ end
         transform = SpatialTransforms((32, 32))
         image = rand(RGB, 64, 96)
 
-        # We apply `SpatialTransforms` in the different [`Context`]s:
+        ## We apply `SpatialTransforms` in the different [`Context`]s:
         imagetrain = transform(Training(), image)
         @test size(imagetrain) == (32, 32)
 
@@ -26,11 +23,11 @@ end
         imageinference = transform(Inference(), image)
         @test size(imageinference) == (32, 48)
 
-        # During inference, the aspect ratio should stay the same
+        ## During inference, the aspect ratio should stay the same
         @test size(image, 1) / size(image, 2) == size(imageinference, 1) / size(imageinference, 2)
 
-        # Training and validation image should be different since
-        # the first uses a random crop, and the second a center crop
+        ## Training and validation image should be different since
+        ## the first uses a random crop, and the second a center crop
         @test !all(imagetrain .≈ imagevalid)
     end
 
