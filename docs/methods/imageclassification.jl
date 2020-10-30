@@ -9,7 +9,7 @@
 #   `]add https://github.com/lorenzoh/DLDatasets.jl`
 # {cell=main style="display:none"}
 
-ENV["DATADEPS_ALWAYS_ACCEPT"] = "yes"  #src
+ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"  #src
 
 # {cell=main}
 
@@ -55,3 +55,9 @@ summary(x)
 # {cell=main}
 
 y = encodetarget(method, Training(), category)
+
+# [`dataiter`](#) will create a data iterator over batches of properly encoded inputs and targets:
+# {cell=main}
+
+traindata = dataiter(method, ds, Training(), 16)
+summary.(first(traindata))

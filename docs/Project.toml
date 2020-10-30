@@ -2,4 +2,5 @@
 DLDatasets = "eb7515f2-3d1a-4576-a673-d8979fdf546c"
 DataAugmentation = "88a5189c-e7ff-4f85-ac6b-e6158070f02e"
 FluxTraining = "7bf95e4d-ca32-48da-9824-f0dc5310474f"
+LearnBase = "7f8f8fb0-2700-5f03-b4bd-41f8cfc144b6"
 Publish = "f065f642-d108-4f50-8aa5-6749150a895a"
