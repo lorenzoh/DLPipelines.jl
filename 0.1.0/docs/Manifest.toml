@@ -258,6 +258,11 @@ version = "1.0.0"
 deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 
+[[DeepDiffs]]
+git-tree-sha1 = "9824894295b62a6a4ab6adf1c7bf337b3a9ca34c"
+uuid = "ab62b9b5-e342-54a8-a765-a90f495de1a6"
+version = "1.2.0"
+
 [[DelimitedFiles]]
 deps = ["Mmap"]
 uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
@@ -362,6 +367,14 @@ deps = ["AbstractTrees", "Adapt", "CUDA", "CodecZlib", "Colors", "DelimitedFiles
 git-tree-sha1 = "ceb09ce8510ef31fd86a791bbd0e1d72a60f27d7"
 uuid = "587475ba-b771-5e3f-ad9e-33799f191a9c"
 version = "0.11.1"
+
+[[FluxModels]]
+deps = ["DocStringExtensions", "Flux", "LinearAlgebra", "ModelUtils", "Parameters"]
+git-tree-sha1 = "ed7b84e77d745a17aff1624415e6bbba3e302ff8"
+repo-rev = "master"
+repo-url = "https://github.com/lorenzoh/FluxModels.jl"
+uuid = "e26eb721-c8f4-421b-a64f-b383a566ead7"
+version = "0.1.0"
 
 [[FluxTraining]]
 deps = ["Animations", "BSON", "DataStructures", "DocStringExtensions", "Flux", "Glob", "LightGraphs", "OnlineStats", "Parameters", "ProgressMeter", "Statistics", "TensorBoardLogger", "UUIDs", "ValueHistories", "Zygote"]
@@ -687,6 +700,14 @@ version = "0.4.4"
 [[Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
+[[ModelUtils]]
+deps = ["AbstractTrees", "Flux", "Statistics", "Zygote"]
+git-tree-sha1 = "2eda378073e1ccc47d5cff58613d0e3dbbae803a"
+repo-rev = "master"
+repo-url = "https://github.com/lorenzoh/ModelUtils.jl"
+uuid = "fa899593-fe74-450d-a78c-2ae6a880e080"
+version = "0.1.0"
+
 [[MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews"]
 git-tree-sha1 = "614e8d77264d20c1db83661daadfab38e8e4b77e"
@@ -951,6 +972,12 @@ version = "0.1.11"
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[[TestSetExtensions]]
+deps = ["DeepDiffs", "Distributed", "Test"]
+git-tree-sha1 = "3a2919a78b04c29a1a57b05e1618e473162b15d0"
+uuid = "98d24dd4-01ad-11ea-1b02-c9a08f80db04"
+version = "2.0.0"
 
 [[ThreadPools]]
 deps = ["Printf", "RecipesBase", "Statistics"]

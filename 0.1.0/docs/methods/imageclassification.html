@@ -32,20 +32,26 @@
 <a href="https://github.com/lorenzoh/DLDatasets.jl">DLDatasets.jl</a> to access <em>ImageNette</em>, a small
 image classification dataset. Install the package using</p>
 <p><code>]add https://github.com/lorenzoh/DLDatasets.jl</code></p>
-<pre><code style="display:none" cell="main" class="language-julia"></code></pre>
+<pre><code style="display:none" cell="main" result="false" class="language-julia">ENV[&quot;DATADEPS_ALWAYS_ACCEPT&quot;] = &quot;true&quot;
+ENV[&quot;CI&quot;] = &quot;false&quot;
+</code></pre>
 <pre><code cell="main" class="language-julia">using DLPipelines
 using DLDatasets
 using LearnBase: getobs
 </code></pre>
 <p>With the packages imported, loading the dataset is straightforward:</p>
-<pre><code cell="main" class="language-julia">ds = DLDatasets.loaddataset(ImageNette, &quot;v2_160px&quot;)
+<pre><code cell="main" class="language-julia">dataset = DLDatasets.loaddataset(ImageNette, &quot;v2_160px&quot;)
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, DataDeps.DisabledError(&quot;DataDeps download disabled, as we appear to be in a CI environment, and the environment variable `DATADEPS_ALWAYS_ACCEPT` is not set.\nIf this is indeed running in a headless CI environment, then set the `DATADEPS_ALWAYS_ACCEPT` environment variable to `true` to bypass the accept download prompt (if you do wish to always accept.)\nIf not, then either unset the `CI` environment variable from true, or set `DATADEPS_ALWAYS_ACCEPT` to `false` for the normal prompt behaviour.&quot;))</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">FileDataset with 13394 files</code></pre>
 <p>As you can see, every observation consists of an image and a category label:</p>
-<pre><code cell="main" class="language-julia">image, category = getobs(ds, 1)
+<pre><code cell="main" class="language-julia">image, category = getobs(dataset, 4000)
 image
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:ds))</code></pre>
+<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n03028079/n03028079_16133.JPEG&quot;.
+
+Fatal error:
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, ArgumentError(&quot;Package ImageMagick not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;ImageMagick\&quot;)` to install the ImageMagick package.\n&quot;))</code></pre>
 <pre><code style="display:none;" cell="main" result="false" class="language-julia">@show category
 </code></pre>
 <p>We can also retrieve the 10 different categories from the dataset’s metadata:</p>
@@ -66,13 +72,9 @@ image
 <p>With the dataset ready, we can create an instance of <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a>.</p>
 <p>Note that you could use any image classification dataset, as long as <code>getobs(ds, idx)</code>
 returns an image and a category.</p>
-<pre><code cell="main" class="language-julia">method = ImageClassification(categories)
+<pre><code cell="main" class="language-julia">method = ImageClassification(categories, sz = (128, 128))
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">ImageClassification
-  categories: Array{String}((10,))
-  spatialtransforms: SpatialTransforms
-  imagepreprocessing: ImagePreprocessing
-</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">ImageClassification() with 10 categories.</code></pre>
 <p>We can now use this <code>method</code> with a <a href="../../docstrings/DLPipelines.Context.html"><code>Context</code></a> to transform the data.
 The image is encoded as a normalized 3D-array:</p>
 <pre><code cell="main" class="language-julia">x = encodeinput(method, Training(), image)
@@ -83,11 +85,17 @@ summary(x)
 <pre><code cell="main" class="language-julia">y = encodetarget(method, Training(), category)
 </code></pre>
 <pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:category))</code></pre>
-<p><a href="#"><code>dataiter</code></a> will create a data iterator over batches of properly encoded inputs and targets:</p>
-<pre><code cell="main" class="language-julia">traindata = dataiter(method, ds, Training(), 16)
-summary.(first(traindata))
+<p>You can also use <a href="../../docstrings/DLPipelines.MethodDataset.html"><code>MethodDataset</code></a> to create a wrapper around your existing dataset
+that directly returns encoded observations:</p>
+<pre><code cell="main" class="language-julia">methoddataset = MethodDataset(dataset, method, Training())
+x, y = getobs(methoddataset, 1)
+summary.((x, y))
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:dataiter))</code></pre>
+<pre><code class="plaintext cell-output cell-stream">Error encountered while loading &quot;/home/runner/.julia/datadeps/imagenette2_160/imagenette2-160/train/n01440764/ILSVRC2012_val_00000293.JPEG&quot;.
+
+Fatal error:
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 2, ArgumentError(&quot;Package ImageMagick not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;ImageMagick\&quot;)` to install the ImageMagick package.\n&quot;))</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="methods.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
@@ -96,11 +104,10 @@ summary.(first(traindata))
     </main>
     <nav id="toc"><ul>
 <li><a href="../../README.html">Readme</a></li>
-<li><a href="../../docs/introduction.html">Introduction</a></li>
-<li><a href="../../docs/usage.html">Usage</a></li>
 </ul>
 <h3 id="library"><a href="../../#library" class="anchor"></a>Library</h3>
 <ul>
+<li><a href="../../docs/introduction.html">Introduction</a></li>
 <li><a href="../../docs/interfaces/overview.html">Interfaces</a>
 <ul>
 <li><a href="../../docs/interfaces/core.html">Core interface</a></li>
@@ -113,14 +120,30 @@ summary.(first(traindata))
 </li>
 <li><a href="../../docs/transforms.html">Transforms</a></li>
 </ul>
+<h3 id="tutorials"><a href="../../#tutorials" class="anchor"></a>Tutorials</h3>
+<ul>
+<li><a href="../../docs/tutorials/fluxtraining.html">Using with FluxTraining.jl</a></li>
+</ul>
 <h3 id="source-code"><a href="../../#source-code" class="anchor"></a>Source code</h3>
 <ul>
 <li><a href="../../src/DLPipelines.html"><code>DLPipelines.jl</code></a></li>
 <li><a href="../../src/task.html"><code>task.jl</code></a></li>
-<li><a href="../../src/api.html"><code>api.jl</code></a></li>
-<li><a href="../../src/transforms/spatial.html"><code>transforms/spatial.jl</code></a></li>
-<li><a href="../../src/transforms/imagepreprocessing.html"><code>transforms/imagepreprocessing.jl</code></a></li>
-<li><a href="../../src/methods/imageclassification.html"><code>methods/imageclassification.jl</code></a></li>
+<li><a href="../../src/dataset.html"><code>dataset.jl</code></a></li>
+<li><code>transforms</code>
+<ul>
+<li><a href="../../src/transforms/spatial.html"><code>spatial.jl</code></a></li>
+<li><a href="../../src/transforms/imagepreprocessing.html"><code>imagepreprocessing.jl</code></a></li>
+</ul>
+</li>
+<li><code>methods</code>
+<ul>
+<li><a href="../../src/methods/imageclassification.html"><code>imageclassification.jl</code></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="tests"><a href="../../#tests" class="anchor"></a>Tests</h3>
+<ul>
+<li><a href="../../test/runtests.html"><code>runtests.jl</code></a></li>
 </ul>
 </nav>
     <footer>
