@@ -20,26 +20,38 @@ using LearnBase: getobs
 # With the packages imported, loading the dataset is straightforward:
 # {cell=main}
 
-ds = DLDatasets.loaddataset(ImageNette, "v2_320px")
+ds = DLDatasets.loaddataset(ImageNette, "v2_160px")
 
 # As you can see, every observation consists of an image and a category label:
 # {cell=main}
-image, label = getobs(ds, 1)
+image, category = getobs(ds, 1)
 image
 # {cell=main, result = false style="display:none;"}
-@show label
+@show category
 
 # We can also retrieve the 10 different categories from the dataset's metadata:
 # {cell=main}
 
 categories = DLDatasets.metadata(ImageNette).labels
 
-# Of
-
 # ## Image classification `Method`
 #
 # With the dataset ready, we can create an instance of [`ImageClassification`](#).
-# The only
-# required argument is `categories`:
+#
+# Note that you could use any image classification dataset, as long as `getobs(ds, idx)`
+# returns an image and a category.
 # {cell=main}
+
 method = ImageClassification(categories)
+
+# We can now use this `method` with a [`Context`](#) to transform the data.
+# The image is encoded as a normalized 3D-array:
+# {cell=main}
+
+x = encodeinput(method, Training(), image)
+summary(x)
+
+# And the category is one-hot encoded:
+# {cell=main}
+
+y = encodetarget(method, Training(), category)

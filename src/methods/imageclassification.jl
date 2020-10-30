@@ -65,7 +65,7 @@ function encodetarget(
         context,
         category)
     idx = findfirst(isequal(category), method.categories)
-    return DataAugmentation.onehot(category, length(method.categories))
+    return DataAugmentation.onehot(idx, length(method.categories))
 end
 
 decodeŷ(method::ImageClassification, context, ŷ) = method.categories[argmax(ŷ)]
