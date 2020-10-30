@@ -37,7 +37,6 @@ image classification dataset. Install the package using</p>
 using DLDatasets
 using LearnBase: getobs
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 3, ArgumentError(&quot;Package LearnBase not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;LearnBase\&quot;)` to install the LearnBase package.\n&quot;))</code></pre>
 <p>With the packages imported, loading the dataset is straightforward:</p>
 <pre><code cell="main" class="language-julia">ds = DLDatasets.loaddataset(ImageNette, &quot;v2_160px&quot;)
 </code></pre>
@@ -84,6 +83,11 @@ summary(x)
 <pre><code cell="main" class="language-julia">y = encodetarget(method, Training(), category)
 </code></pre>
 <pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:category))</code></pre>
+<p><a href="#"><code>dataiter</code></a> will create a data iterator over batches of properly encoded inputs and targets:</p>
+<pre><code cell="main" class="language-julia">traindata = dataiter(method, ds, Training(), 16)
+summary.(first(traindata))
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:dataiter))</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="methods.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>
