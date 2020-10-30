@@ -42,7 +42,7 @@ using StaticArrays
 using Parameters
 </code></pre>
 <p><a href="./task.html"><code>task.jl</code></a> defines the <a href="../docs/interfaces/core.html">task and method interface</a>.</p>
-<pre><code class="language-julia">export Task, Method, encode, encodeinput, encodetarget
+<pre><code class="language-julia">export Task, Method, Context, Training, Validation, Inference, encode, encodeinput, encodetarget
 </code></pre>
 <p><a href="/api.jl"><code>api.jl</code></a> defines the user-facing functions.</p>
 <pre><code class="language-julia">export dataiter, predict

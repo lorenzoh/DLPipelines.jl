@@ -70,10 +70,22 @@ blockquote {
     background-color: transparent;
 }
 
-pre > .cell-result {
+.cell-result, .cell-output{
     background: white;
     background-color: white;
 }
+
+code[cell] {
+    border-left: 1px solid lightgray;
+    border-radius: 4px;
+
+}
+
+
+img {
+    padding: 4px 0px;
+}
+
 
 pre {
 

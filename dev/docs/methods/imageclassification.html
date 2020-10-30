@@ -27,7 +27,55 @@
         <select id="version-selector"></select>
     </div>
     <main id="page"><article><h1 id="image-classification"><a href="#image-classification" class="anchor"></a>Image classification</h1>
-<p>For complete documentation of <code>ImageClassification</code>’s arguments, see <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a></p>
+<p><em>See <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a>’s for complete documentation of its arguments</em></p>
+<p>Let’s explore what you can do with the <a href="../../docstrings/DLPipelines.Method.html"><code>Method</code></a> interface implemented. We’re using
+<a href="https://github.com/lorenzoh/DLDatasets.jl">DLDatasets.jl</a> to access <em>ImageNette</em>, a small
+image classification dataset. Install the package using</p>
+<p><code>]add https://github.com/lorenzoh/DLDatasets.jl</code></p>
+<pre><code style="display:none" cell="main" class="language-julia"></code></pre>
+<pre><code cell="main" class="language-julia">using DLPipelines
+using DLDatasets
+using LearnBase: getobs
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 3, ArgumentError(&quot;Package LearnBase not found in current path:\n- Run `import Pkg; Pkg.add(\&quot;LearnBase\&quot;)` to install the LearnBase package.\n&quot;))</code></pre>
+<p>With the packages imported, loading the dataset is straightforward:</p>
+<pre><code cell="main" class="language-julia">ds = DLDatasets.loaddataset(ImageNette, &quot;v2_320px&quot;)
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, DataDeps.DisabledError(&quot;DataDeps download disabled, as we appear to be in a CI environment, and the environment variable `DATADEPS_ALWAYS_ACCEPT` is not set.\nIf this is indeed running in a headless CI environment, then set the `DATADEPS_ALWAYS_ACCEPT` environment variable to `true` to bypass the accept download prompt (if you do wish to always accept.)\nIf not, then either unset the `CI` environment variable from true, or set `DATADEPS_ALWAYS_ACCEPT` to `false` for the normal prompt behaviour.&quot;))</code></pre>
+<p>As you can see, every observation consists of an image and a category label:</p>
+<pre><code cell="main" class="language-julia">image, label = getobs(ds, 1)
+image
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:ds))</code></pre>
+<pre><code style="display:none;" cell="main" result="false" class="language-julia">@show label
+</code></pre>
+<p>We can also retrieve the 10 different categories from the dataset’s metadata:</p>
+<pre><code cell="main" class="language-julia">categories = DLDatasets.metadata(ImageNette).labels
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">10-element Array{String,1}:
+ &quot;tench&quot;
+ &quot;English springer&quot;
+ &quot;cassette player&quot;
+ &quot;chain saw&quot;
+ &quot;church&quot;
+ &quot;French horn&quot;
+ &quot;garbage truck&quot;
+ &quot;gas pump&quot;
+ &quot;golf ball&quot;
+ &quot;parachute&quot;</code></pre>
+<p>Of</p>
+<pre><code class="language-julia"></code></pre>
+<h2 id="image-classification-method"><a href="#image-classification-method" class="anchor"></a>Image classification <code>Method</code></h2>
+<p>With the dataset ready, we can create an instance of <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a>.
+The only
+required argument is <code>categories</code>:</p>
+<pre><code cell="main" class="language-julia">method = ImageClassification(categories)
+</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">ImageClassification
+  categories: Array{String}((10,))
+  spatialtransforms: SpatialTransforms
+  imagepreprocessing: ImagePreprocessing
+</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="methods.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>

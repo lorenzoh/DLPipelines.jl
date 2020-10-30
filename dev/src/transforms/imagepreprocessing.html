@@ -41,9 +41,9 @@ If no `means` or `stds` are given, use ImageNet statistics.
     stds = IMAGENET_STDS
 end
 
-function (ip::ImagePreprocessing)(img::Image)
+function (ip::ImagePreprocessing)(image)
     tfms = ToEltype{ip.C}() |&gt; SplitChannels() |&gt; Normalize(ip.means, ip.stds)
-    apply(tfms, DataAugmentation.Image(img)) |&gt; itemdata
+    apply(tfms, DataAugmentation.Image(image)) |&gt; itemdata
 end
 
 

@@ -29,9 +29,14 @@
     <main id="page"><article><div class='docs' id='ImageClassification'>
 <p><code>public</code> <code>ImageClassification</code> — <code>struct</code></p>
 <div class='doc' id='1'>
-<pre><code>ImageClassification(nclasses[; sz, augmentations, ...]) &lt;: Method{ImageClassificationTask}
+<pre><code>ImageClassification(categories, [; sz, augmentations, ...]) &lt;: Method{ImageClassificationTask}
+ImageClassification(n, ...)
 </code></pre>
 <p>A <a href="DLPipelines.Method.html"><code>Method</code></a> for multi-class image classification using softmax probabilities.</p>
+<p><code>categories</code> is a vector of the category labels. Alternatively, you can pass an integer.
+Images are resized to <code>sz</code>.</p>
+<p>During training, a random crop is used and <code>augmentations</code>, a <code>DataAugmentation.Transform</code>
+are applied.</p>
 <h3 id="types"><a href="#types" class="anchor"></a>Types</h3>
 <ul>
 <li><code>input::AbstractMatrix{2, &lt;:Colorant}</code>: an image</li>
