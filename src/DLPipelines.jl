@@ -42,6 +42,8 @@ include("./inference.jl")  #src
 # - [`training.jl`](./training.jl)
 
 include("./interpretation.jl")  #src
+export interpretsample, interpretinput, interprettarget,
+    interpretx, interprety, interpretŷ
 include("./training.jl")  #src
 
 # ### Method implementations

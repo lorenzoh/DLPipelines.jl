@@ -1,3 +1,7 @@
 # # Training interface
 
-function lossfunction(method) end
+"""
+    lossfunction(method)
+
+"""
+function lossfunction end
