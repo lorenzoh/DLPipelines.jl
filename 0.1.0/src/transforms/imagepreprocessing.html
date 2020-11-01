@@ -47,7 +47,7 @@ function (ip::ImagePreprocessing)(image)
 end
 
 
-function invert(ip::ImagePreprocessing, x)
+function undo(ip::ImagePreprocessing, x)
     return DataAugmentation.tensortoimage(DataAugmentation.denormalize(x, ip.means, ip.stds))
 end
 
