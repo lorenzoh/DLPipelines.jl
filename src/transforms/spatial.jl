@@ -61,6 +61,7 @@ Tries to assign a `DataAugmentation.Item` from `data` based on its type.
 """
 makeitem(data, args...) = itemtype(data)(data, args...)
 makeitem(item::Item, args...) = item
+makeitem(datas::Tuple, args...) = Tuple(makeitem(data, args...) for data in datas)
 
 
 itemtype(data::AbstractMatrix{<:Colorant}) = DataAugmentation.Image
