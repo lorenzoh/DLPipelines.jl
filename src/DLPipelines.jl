@@ -34,13 +34,22 @@ include("./dataset.jl")  #src
 export MethodDataset
 
 ## TODO: [`inference.jl`](./inference.jl)
-
 include("./inference.jl")  #src
 
-# The [`Method`](#) implementations live under `methods/`:
+# ### Optional interfaces
+#
+# - [`interpretation.jl`](./interpretation.jl)
+# - [`training.jl`](./training.jl)
+
+include("./interpretation.jl")  #src
+include("./training.jl")  #src
+
+# ### Method implementations
 # - [`methods/imageclassification.jl`](./methods/imageclassification.jl)
+
 include("./methods/imageclassification.jl")  #src
 export ImageClassification
+
 
 
 end  # module #src
