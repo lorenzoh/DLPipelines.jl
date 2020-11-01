@@ -313,7 +313,7 @@ version = "0.11.1"
 
 [[FluxTraining]]
 deps = ["Animations", "BSON", "DataStructures", "DocStringExtensions", "Flux", "Glob", "LightGraphs", "OnlineStats", "Parameters", "ProgressMeter", "Statistics", "TensorBoardLogger", "UUIDs", "ValueHistories", "Zygote"]
-git-tree-sha1 = "8b8fb92c0f0aebaabe6aa547c415f3557c3c34fa"
+git-tree-sha1 = "333a9e4051e480088873a25cd44986d976d93be7"
 repo-rev = "master"
 repo-url = "https://github.com/lorenzoh/FluxTraining.jl"
 uuid = "7bf95e4d-ca32-48da-9824-f0dc5310474f"
