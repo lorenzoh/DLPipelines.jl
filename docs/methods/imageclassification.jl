@@ -1,6 +1,6 @@
 # # Image classification
 #
-# *See [`ImageClassification`](#)'s for complete documentation of its arguments*
+# *See [`ImageClassification`](#) for complete documentation of its arguments*
 #
 # Let's explore what you can do with the [`Method`](#) interface implemented. We're using
 # [DLDatasets.jl](https://github.com/lorenzoh/DLDatasets.jl) to access *ImageNette*, a small
