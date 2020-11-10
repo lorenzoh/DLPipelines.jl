@@ -17,7 +17,6 @@
     <script src="..&#x2F;..&#x2F;julia.min.js"></script>
     <script src="..&#x2F;..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;..&#x2F;publish.js"></script>
-    <link rel="stylesheet" href="..&#x2F;custom.css" />
     
 </head>
 <body>
@@ -30,8 +29,7 @@
 <p><em>DLPipelines.jl</em> works great together with
 <a href="https://github.com/lorenzoh/FluxTraining.jl"><em>FluxTraining.jl</em></a>.</p>
 <p>We’ll train an image classifier to show how.</p>
-<h3 id="setup"><a href="#setup" class="anchor"></a>Setup</h3>
-<p>If you want to follow along, you’ll have to install some other libraries;</p>
+<p>If you want to follow along, you’ll have to install some other libraries</p>
 <pre><code class="language-julia">using Pkg
 Pkg.add(&quot;DataLoaders&quot;)
 Pkg.add(&quot;Flux&quot;)
@@ -52,7 +50,6 @@ using FluxTraining: Learner, fit!
 using LearnBase: getobs
 using MLDataPattern: splitobs
 </code></pre>
-<h3 id="overview"><a href="#overview" class="anchor"></a>Overview</h3>
 <p>Recall the 4 things needed to start training with <em>FluxTraining.jl</em>:</p>
 <ul>
 <li>a model to train,</li>
@@ -99,8 +96,8 @@ summary.((x, y))
 </code></pre>
 <pre><code class="plaintext cell-output cell-result" class="language-plaintext">(&quot;128×128×3 Array{Float32,3}&quot;, &quot;10-element Array{Float32,1}&quot;)</code></pre>
 <p>To finally get an iterator over batches, we can use <code>DataLoader</code> from
-<a href="https://lorenzoh.github.io/DataLoaders.jl/dev/README.html">*DataLoaders.jl</a>.</p>
-<p>It will also make sure to prefetch the data on background threads so that
+<a href="https://lorenzoh.github.io/DataLoaders.jl/dev/README.html">DataLoaders.jl</a>.
+It will also make sure to prefetch the data on background threads so that
 the training loop isn’t slowed down waiting for the next batch of data.</p>
 <pre><code cell="main" result="false" class="language-julia">batchsize = 16
 traindl = DataLoader(traindataset, batchsize)
@@ -124,11 +121,9 @@ to <code>Learner</code>, for example <code>ToGPU()</code> to utilize your GPU wh
             <a id="next-page" title="Next" href="..&#x2F;..&#x2F;src&#x2F;DLPipelines.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
         </div>
     </main>
-    <nav id="toc"><ul>
-<li><a href="../../README.html">Readme</a></li>
-</ul>
-<h3 id="library"><a href="../../#library" class="anchor"></a>Library</h3>
+    <nav id="toc"><h2 id="dlpipelinesjl"><a href="../../#dlpipelinesjl" class="anchor"></a>DLPipelines.jl</h2>
 <ul>
+<li><a href="../../README.html">Readme</a></li>
 <li><a href="../../docs/introduction.html">Introduction</a></li>
 <li><a href="../../docs/interfaces/overview.html">Interfaces</a>
 <ul>
@@ -141,10 +136,11 @@ to <code>Learner</code>, for example <code>ToGPU()</code> to utilize your GPU wh
 </ul>
 </li>
 <li><a href="../../docs/transforms.html">Transforms</a></li>
-</ul>
-<h3 id="tutorials"><a href="../../#tutorials" class="anchor"></a>Tutorials</h3>
+<li>Tutorials
 <ul>
 <li><a href="../../docs/tutorials/fluxtraining.html">Using with FluxTraining.jl</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="source-code"><a href="../../#source-code" class="anchor"></a>Source code</h3>
 <ul>

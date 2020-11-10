@@ -17,7 +17,6 @@
     <script src="..&#x2F;..&#x2F;julia.min.js"></script>
     <script src="..&#x2F;..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;..&#x2F;publish.js"></script>
-    <link rel="stylesheet" href="..&#x2F;custom.css" />
     
 </head>
 <body>
@@ -27,25 +26,11 @@
         <select id="version-selector"></select>
     </div>
     <main id="page"><article><h1 id="core-interface"><a href="#core-interface" class="anchor"></a>Core interface</h1>
-<p>First you need to <strong>define a custom <a href="../../docstrings/DLPipelines.Method.html"><code>Method</code></a></strong> (and possibly a <code>Task</code>).</p>
+<p>First you need to define a custom <a href="../../docstrings/DLPipelines.Method.html"><code>Method</code></a> (and possibly a <code>Task</code>).</p>
 <p>Then implement the following functions by dispatching on the method.</p>
-<h2 id="required-functions"><a href="#required-functions" class="anchor"></a>Required functions</h2>
-<ul>
-<li><a href="../../docstrings/DLPipelines.encodeinput.html"><code>encodeinput</code></a><code>(method, context, input) -&gt; x</code> encodes an input so that it can be fed to a model</li>
-<li><a href="../../docstrings/DLPipelines.decodeŷ.html"><code>decodeŷ</code></a><code>(method, context, ŷ) -&gt; target</code> decodes the output of a model into a target</li>
-<li>either
-<ul>
-<li><a href="../../docstrings/DLPipelines.encode.html"><code>encode</code></a><code>(method, context, sample) -&gt; (x, y)</code> encodes a sample containing input and target so they can be used for a training step</li>
-<li><a href="../../docstrings/DLPipelines.encodetarget.html"><code>encodetarget</code></a><code>(method, context, target) -&gt; y</code>
-encodes a target so that it can be compared to a model output using a loss function</li>
-</ul>
-</li>
-</ul>
-<h2 id="optional-functions"><a href="#optional-functions" class="anchor"></a>Optional functions</h2>
-<ul>
-<li><a href="../../docstrings/DLPipelines.shouldbatch.html"><code>shouldbatch</code></a><code>(method)</code> defines whether the model for a method should take batches of encoded inputs. The default is <code>true</code>.</li>
-</ul>
-<h2 id="remarks"><a href="#remarks" class="anchor"></a>Remarks</h2>
+<table><thead><tr><th align="right">Required functions</th><th align="left">Description</th></tr></thead><tbody><tr><td align="right"><a href="../../docstrings/DLPipelines.encodeinput.html"><code>encodeinput</code></a></td><td align="left">Encodes an input so that it can be fed to a model</td></tr><tr><td align="right"><a href="../../docstrings/DLPipelines.decodeŷ.html"><code>decodeŷ</code></a></td><td align="left">Decodes the output of a model into a target</td></tr><tr><td align="right"><a href="../../docstrings/DLPipelines.encode.html"><code>encode</code></a></td><td align="left">Encodes a sample containing input and target so they can be used for a training step</td></tr><tr><td align="right"><a href="../../docstrings/DLPipelines.encodeinput.html"><code>encodeinput</code></a></td><td align="left">Encodes an input so that it can be fed to a model</td></tr><tr><td align="right"><a href="../../docstrings/DLPipelines.encodetarget.html"><code>encodetarget</code></a></td><td align="left">Encodes a target so that it can be compared to a model output using a loss function</td></tr></tbody></table>
+<h1 id="section"><a href="#section" class="anchor"></a></h1>
+<table><thead><tr><th align="right">Optional functions</th><th align="left">Description</th></tr></thead><tbody><tr><td align="right"><a href="../../docstrings/DLPipelines.shouldbatch.html"><code>shouldbatch</code></a></td><td align="left">Defines whether the model for a method should take batches of</td></tr><tr><td align="right"></td><td align="left">encoded inputs. The default is <code>true</code>.</td></tr></tbody></table>
 <ul>
 <li>
 <p><em>What is the <code>context</code> argument?</em></p>
@@ -62,11 +47,9 @@ encodes a target so that it can be compared to a model output using a loss funct
             <a id="next-page" title="Next" href="..&#x2F;methods&#x2F;methods.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
         </div>
     </main>
-    <nav id="toc"><ul>
-<li><a href="../../README.html">Readme</a></li>
-</ul>
-<h3 id="library"><a href="../../#library" class="anchor"></a>Library</h3>
+    <nav id="toc"><h2 id="dlpipelinesjl"><a href="../../#dlpipelinesjl" class="anchor"></a>DLPipelines.jl</h2>
 <ul>
+<li><a href="../../README.html">Readme</a></li>
 <li><a href="../../docs/introduction.html">Introduction</a></li>
 <li><a href="../../docs/interfaces/overview.html">Interfaces</a>
 <ul>
@@ -79,10 +62,11 @@ encodes a target so that it can be compared to a model output using a loss funct
 </ul>
 </li>
 <li><a href="../../docs/transforms.html">Transforms</a></li>
-</ul>
-<h3 id="tutorials"><a href="../../#tutorials" class="anchor"></a>Tutorials</h3>
+<li>Tutorials
 <ul>
 <li><a href="../../docs/tutorials/fluxtraining.html">Using with FluxTraining.jl</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="source-code"><a href="../../#source-code" class="anchor"></a>Source code</h3>
 <ul>

@@ -17,7 +17,6 @@
     <script src="..&#x2F;julia.min.js"></script>
     <script src="..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;publish.js"></script>
-    <link rel="stylesheet" href="custom.css" />
     
 </head>
 <body>
@@ -27,14 +26,15 @@
         <select id="version-selector"></select>
     </div>
     <main id="page"><article><h1 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>In supervised deep learning, we’re usually trying to solve a problem by finding a mapping from some inputs to some targets. Let’s call this a <em>task</em>. Consider for example this table:</p>
+<h2 id="terminology"><a href="#terminology" class="anchor"></a>Terminology</h2>
+<p>In supervised deep learning, we’re usually trying to solve a problem by finding a mapping from some input to some target. Let’s call this a <em>task</em>. Consider the following tasks:</p>
 <table><thead><tr><th align="left">Task</th><th align="left">Input</th><th align="left">Target</th></tr></thead><tbody><tr><td align="left">Image classification</td><td align="left">Image</td><td align="left">Category</td></tr><tr><td align="left">Semantic segmentation</td><td align="left">Image</td><td align="left">Category per pixel</td></tr><tr><td align="left">Object detection</td><td align="left">Image</td><td align="left">Bounding boxes</td></tr><tr><td align="left">Text completion</td><td align="left">Text</td><td align="left">Next character</td></tr></tbody></table>
 <p>There are usually multiple ways to go about solving a task. We call a <em>method</em> a concrete approach to a task that has a learnable part (the model) but also defines how</p>
 <ul>
 <li>inputs and targets are <em>encoded</em> into a form that can be fed to and output by the model</li>
 <li>model outputs are <em>decoded</em> to obtain target predictions; and</li>
 </ul>
-<p>os an example method, consider the commmon way of approaching the task of image classification:</p>
+<p>As an example method, consider the commmon way of approaching the task of image classification:</p>
 <ul>
 <li>images are encoded into normalized 3D-Arrays of <code>Float32</code>s and categories into one-hot vectors</li>
 <li>the predicted probability distributions can be decoded into a category by finding the index of the highest score; and</li>
@@ -42,39 +42,18 @@
 </ul>
 <p>An additional complication comes from the fact that the encoding and decoding step may differ based on situation. For example, during training we often want to apply some augmentation when encoding that would be detrimental to performance during inference.</p>
 <h2 id="in-code"><a href="#in-code" class="anchor"></a>In code</h2>
+<p>Let’s give those concepts variable names and generic types so we can refer to them more easily.</p>
+<table><thead><tr><th align="right">Concept</th><th align="left">Abstract code</th><th align="left">Image classification</th></tr></thead><tbody><tr><td align="right">Task</td><td align="left"><code>Task</code></td><td align="left"><code>ImageClassificationTask &lt;: Task</code></td></tr><tr><td align="right">Method</td><td align="left"><code>Method{Task}</code></td><td align="left"><code>ImageClassification &lt;: Method{ImageClassificationTask}</code></td></tr><tr><td align="right">Input</td><td align="left"><code>input::I</code></td><td align="left"><code>image::AbstractMatrix{&lt;:Colorant}</code></td></tr><tr><td align="right">Target</td><td align="left"><code>target::T</code></td><td align="left"><code>category::String</code></td></tr><tr><td align="right">Encoded input</td><td align="left"><code>x::X</code></td><td align="left"><code>x::AbstractArray{Float32, 3}</code></td></tr><tr><td align="right">Encoded target</td><td align="left"><code>y::Y</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr><tr><td align="right">Model output</td><td align="left"><code>ŷ::Ŷ</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr></tbody></table>
+<p>So a <code>Task</code> is an abstract type representing a mapping from some input type <code>I</code> to target type <code>T</code>. A <code>Method{T}</code> implements the task <code>T</code> by using encoded representations <code>X</code> and <code>Y</code>. For example, the <code>ImageClassificationTask</code> task represents a mapping from an image to a category. The concrete <a href="../docstrings/DLPipelines.Method.html"><code>Method</code></a> <a href="../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a> implements that task using the encoded representations defined in the table above.</p>
 <p>The most important type is <a href="../docstrings/DLPipelines.Method.html"><code>Method</code></a> which represents a method for a <a href="../docstrings/DLPipelines.Task.html"><code>Task</code></a>. All interface functions will dispatch on <code>Method</code>. It should be a concrete <code>struct</code> containing necessary configuration.</p>
-<p>Let’s give the other concepts variable names and generic types so we can refer to them more easily:</p>
-<ul>
-<li><code>task::Task</code>: a task mapping <code>I</code> to <code>T</code></li>
-<li><code>method::Method{Task}</code>: a method implementing a task using encodings <code>X</code> and <code>Y</code></li>
-<li><code>input::I</code>: an input</li>
-<li><code>target::T</code>: a target</li>
-<li><code>x::X</code>: an encoded input</li>
-<li><code>y::Y</code>: an encoded target</li>
-<li><code>ŷ::Ŷ</code>: a model output</li>
-<li><code>inputs</code>, <code>targets</code>, <code>xs</code>, <code>ys</code>: batches of the respective data</li>
-<li><code>model</code>: a function <code>(X) -&gt; Ŷ</code></li>
-<li><code>lossfn</code>: a function <code>(Ŷ, Y) -&gt; Number</code></li>
-</ul>
-<p>So a <code>Task</code> is an abstract type representing a mapping from some input type <code>I</code> to target type <code>T</code>. A <code>Method{T}</code> implements the task <code>T</code> by using encoded representations <code>X</code> and <code>Y</code>.</p>
-<p>As a concrete example, consider image classification:</p>
-<ul>
-<li><code>task::ImageClassificationTask</code>: subtype of <code>Task</code></li>
-<li><code>method::ImageClassification</code>: subtype of <code>Method{ImageClassificationTask}</code></li>
-<li><code>input::AbstractMatrix{2, &lt;:Colorant}</code>: an image</li>
-<li><code>target::Int</code> the category that the image belongs to</li>
-<li><code>x::AbstractArray{Float32, 3}</code>: a normalized 3D-array with dimensions <em>height, width, channels</em></li>
-<li><code>y::AbstractVector{Float32}</code>: one-hot encoding of category</li>
-<li><code>ŷ::AbstractVector{Float32̂}</code>: softmax probabilities</li>
-</ul>
 <h2 id="core-pipelines"><a href="#core-pipelines" class="anchor"></a>Core pipelines</h2>
+<p class="marginnote">We neglect batching here, as it doesn’t change the semantics of the data pipeline, just the practical implementation.</p>
 <p>To give a motivation for the interface, consider the two most important pipelines in a deep learning application: training and inference.</p>
-<p><em>Note: I’m purposely neglecting batching here (for now), as it doesn’t change the semantics of the data pipeline, just the practical implementation.</em></p>
-<p>During <strong>inference</strong>, we have an input and obtain a target prediction. Writing this with types gives us:</p>
+<p>During inference, we have an input and obtain a target prediction. Writing this with types gives us:</p>
 <pre><code class="language-text">     encode       model       decode
 ::I -------&gt; ::X ------&gt; ::Ŷ -------&gt; ::T
 </code></pre>
-<p>When <strong>training</strong>, we first encode both input and target, including any augmentation. We then feed the encoded input to the model and compare its output with the true encoded target.</p>
+<p>When training, we first encode both input and target, including any augmentation. We then feed the encoded input to the model and compare its output with the true encoded target.</p>
 <pre><code class="language-text">          encode            lossfn(model(X), Y)
 ::(I, 0) -------&gt; ::(X, Y) --------------------&gt; loss
 </code></pre>
@@ -91,11 +70,9 @@
             <a id="next-page" title="Next" href="interfaces&#x2F;overview.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="currentColor" /></svg></a>
         </div>
     </main>
-    <nav id="toc"><ul>
-<li><a href="../README.html">Readme</a></li>
-</ul>
-<h3 id="library"><a href="../#library" class="anchor"></a>Library</h3>
+    <nav id="toc"><h2 id="dlpipelinesjl"><a href="../#dlpipelinesjl" class="anchor"></a>DLPipelines.jl</h2>
 <ul>
+<li><a href="../README.html">Readme</a></li>
 <li><a href="../docs/introduction.html">Introduction</a></li>
 <li><a href="../docs/interfaces/overview.html">Interfaces</a>
 <ul>
@@ -108,10 +85,11 @@
 </ul>
 </li>
 <li><a href="../docs/transforms.html">Transforms</a></li>
-</ul>
-<h3 id="tutorials"><a href="../#tutorials" class="anchor"></a>Tutorials</h3>
+<li>Tutorials
 <ul>
 <li><a href="../docs/tutorials/fluxtraining.html">Using with FluxTraining.jl</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="source-code"><a href="../#source-code" class="anchor"></a>Source code</h3>
 <ul>
