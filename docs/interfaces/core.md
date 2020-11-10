@@ -1,24 +1,25 @@
 
 # Core interface
 
-First you need to **define a custom [`Method`](#)** (and possibly a `Task`).
+First you need to define a custom [`Method`](#) (and possibly a `Task`).
 
 Then implement the following functions by dispatching on the method.
 
-## Required functions
+|  Required functions | Description                                                                          |
+| ------------------: | :----------------------------------------------------------------------------------- |
+|  [`encodeinput`](#) | Encodes an input so that it can be fed to a model                                    |
+|      [`decodeŷ`](#) | Decodes the output of a model into a target                                          |
+|       [`encode`](#) | Encodes a sample containing input and target so they can be used for a training step |
+|  [`encodeinput`](#) | Encodes an input so that it can be fed to a model                                    |
+| [`encodetarget`](#) | Encodes a target so that it can be compared to a model output using a loss function  |
 
-- [`encodeinput`](#)`(method, context, input) -> x` encodes an input so that it can be fed to a model
-- [`decodeŷ`](#)`(method, context, ŷ) -> target` decodes the output of a model into a target
-- either
-  - [`encode`](#)`(method, context, sample) -> (x, y)` encodes a sample containing input and target so they can be used for a training step
-  - [`encodetarget`](#)`(method, context, target) -> y`
-  encodes a target so that it can be compared to a model output using a loss function
+#
 
-## Optional functions
+| Optional functions | Description                                                   |
+| -----------------: | :------------------------------------------------------------ |
+| [`shouldbatch`](#) | Defines whether the model for a method should take batches of |
+|                    | encoded inputs. The default is `true`.                        |
 
-- [`shouldbatch`](#)`(method)` defines whether the model for a method should take batches of encoded inputs. The default is `true`.
-
-## Remarks
 
 - *What is the `context` argument?*
 
