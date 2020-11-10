@@ -8,8 +8,7 @@
     <title>DLPipelines.jl</title>
     <link rel="stylesheet" href="..&#x2F;normalize.css" />
     <link rel="stylesheet" href="..&#x2F;tabulator_simple.min.css" />
-    <link rel="stylesheet" href="..&#x2F;publish.css" />
-    <link rel="stylesheet" href="..&#x2F;default.min.css" />
+    <link rel="stylesheet" href="..&#x2F;lorenzo.css" />
     <script src="..&#x2F;versions.js"></script>
     <script src="..&#x2F;lunr.js"></script>
     <script src="..&#x2F;highlight.min.js"></script>
@@ -18,6 +17,16 @@
     <script src="..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;publish.js"></script>
     
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+        -->
+
 </head>
 <body>
     <div class="menu">
@@ -114,26 +123,16 @@ end
     end
 end
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">....
-=====================================================
-image: Test Failed at string:30
-  Expression: !(all(imagetrain .≈ imagevalid))
-Stacktrace:
- [1] top-level scope at string:30
- [2] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
- [3] top-level scope at string:12
- [4] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
- [5] top-level scope at string:11
-=====================================================
-......
+<pre><code class="plaintext cell-output cell-stream">...........
 
-Test Summary:         | Pass  Fail  Total
-`SpatialTransforms`   |   10     1     11
-  image               |    4     1      5
-  keypoints           |    3            3
-  image and keypoints |    3            3
+Test Summary:       | Pass  Total
+`SpatialTransforms` |   11     11
+.....
+
+Test Summary:         | Pass  Total
+`ImageClassification` |    5      5
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 10, Some tests did not pass: 10 passed, 1 failed, 0 errored, 0 broken.)</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">Test.DefaultTestSet(&quot;`ImageClassification`&quot;, Any[Test.DefaultTestSet(&quot;Core interface&quot;, Any[Test.DefaultTestSet(&quot;`encodeinput`&quot;, Any[], 4, false), Test.DefaultTestSet(&quot;`encodetarget`&quot;, Any[], 0, false), Test.DefaultTestSet(&quot;`encode`&quot;, Any[], 1, false)], 0, false)], 0, false)</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="..&#x2F;src&#x2F;methods&#x2F;imageclassification.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>

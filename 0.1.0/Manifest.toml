@@ -199,7 +199,7 @@ version = "1.4.0"
 
 [[DataAugmentation]]
 deps = ["ColorBlendModes", "CoordinateTransformations", "DocStringExtensions", "ImageDraw", "ImageTransformations", "Images", "Parameters", "Setfield", "StaticArrays"]
-git-tree-sha1 = "7521e113184981b67d484b3e377a032c211c3d7c"
+git-tree-sha1 = "77472d496aabed1d68d0f78285c0051165135b9c"
 repo-rev = "master"
 repo-url = "https://github.com/lorenzoh/DataAugmentation.jl"
 uuid = "88a5189c-e7ff-4f85-ac6b-e6158070f02e"
