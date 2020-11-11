@@ -22,7 +22,7 @@ As an example method, consider the commmon way of approaching the task of image 
 - the predicted probability distributions can be decoded into a category by finding the index of the highest score; and
 - the model takes in batches of encoded inputs and output batches of encoded targets
 
-An additional complication comes from the fact that the encoding and decoding step may differ based on situation. For example, during training we often want to apply some augmentation when encoding that would be detrimental to performance during inference.
+An additional complication comes from the fact that the encoding and decoding step may differ based on the context. For example, during training we often want to augment the inputs which would be detrimental to performance during inference.
 
 ## In code
 

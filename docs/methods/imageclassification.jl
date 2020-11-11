@@ -1,6 +1,6 @@
 # # Image classification
 #
-# *See [`ImageClassification`](#) for complete documentation of its arguments*
+# *See [`ImageClassification`](#) for complete documentation of its arguments.*
 #
 # Let's explore what you can do with the [`Method`](#) interface implemented. We're using
 # [DLDatasets.jl](https://github.com/lorenzoh/DLDatasets.jl) to access *ImageNette*, a small
@@ -12,7 +12,7 @@
 ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"
 ENV["CI"] = "false"
 
-# {cell=main}
+# {cell=main output=false}
 
 using DLPipelines
 using DLDatasets

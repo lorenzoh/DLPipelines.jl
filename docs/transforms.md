@@ -1,6 +1,6 @@
 # Transforms
 
-Transforms are building blocks that can help you implementing the interfaces for custom [`Method`](#)s. Using them is completely optional.
+Transforms are building blocks that can help you implement the interfaces for custom [`Method`](#)s. Using them is optional, of course.
 
 - [`SpatialTransforms`](#)
 - [`ImagePreprocessing`](#)

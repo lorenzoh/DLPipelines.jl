@@ -8,4 +8,4 @@ The package was born from the realization that the data pipeline plays a large r
 
 [Read on here](docs/introduction.md) to find out more about the interface.
 
-***DLPipelines.jl* is currently in a pre-implementation phase where the focus is on exploring suitable interfaces.**
+*DLPipelines.jl is still in an experimentation phase focused on exploring suitable interfaces.*

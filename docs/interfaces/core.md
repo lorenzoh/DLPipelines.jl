@@ -7,11 +7,10 @@ Then implement the following functions by dispatching on the method.
 
 |  Required functions | Description                                                                          |
 | ------------------: | :----------------------------------------------------------------------------------- |
-|  [`encodeinput`](#) | Encodes an input so that it can be fed to a model                                    |
-|      [`decodeŷ`](#) | Decodes the output of a model into a target                                          |
 |       [`encode`](#) | Encodes a sample containing input and target so they can be used for a training step |
 |  [`encodeinput`](#) | Encodes an input so that it can be fed to a model                                    |
 | [`encodetarget`](#) | Encodes a target so that it can be compared to a model output using a loss function  |
+|      [`decodeŷ`](#) | Decodes the output of a model into a target                                          |
 
 #
 
