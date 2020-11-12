@@ -8,10 +8,12 @@ module DLPipelines #src
 
 using Colors
 using DataLoaders
+using DataLoaders: obsslices #src
 using DataAugmentation
 using Flux
 using FluxTraining
 using MLDataUtils
+using MosaicViews
 using LearnBase
 using StaticArrays
 using Parameters
@@ -35,6 +37,7 @@ export MethodDataset
 
 ## TODO: [`inference.jl`](./inference.jl)
 include("./inference.jl")  #src
+export predict, predictbatch
 
 # ### Optional interfaces
 #
