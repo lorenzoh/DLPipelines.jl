@@ -5,9 +5,7 @@
 #
 # We'll train an image classifier to show how.
 #
-# ### Setup
-#
-# If you want to follow along, you'll have to install some other libraries;
+# If you want to follow along, you'll have to install some other libraries
 
 using Pkg
 Pkg.add("DataLoaders")
@@ -31,8 +29,6 @@ using FluxTraining: Learner, fit!
 using LearnBase: getobs
 using MLDataPattern: splitobs
 
-# ### Overview
-#
 # Recall the 4 things needed to start training with *FluxTraining.jl*:
 #
 # - a model to train,
@@ -89,8 +85,7 @@ x, y = getobs(traindataset, 1)
 summary.((x, y))
 
 # To finally get an iterator over batches, we can use `DataLoader` from
-# [*DataLoaders.jl](https://lorenzoh.github.io/DataLoaders.jl/dev/README.html).
-#
+# [DataLoaders.jl](https://lorenzoh.github.io/DataLoaders.jl/dev/README.html).
 # It will also make sure to prefetch the data on background threads so that
 # the training loop isn't slowed down waiting for the next batch of data.
 #
