@@ -17,9 +17,10 @@
     <script src="..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;publish.js"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
     <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
@@ -49,7 +50,7 @@
 <li>the predicted probability distributions can be decoded into a category by finding the index of the highest score; and</li>
 <li>the model takes in batches of encoded inputs and output batches of encoded targets</li>
 </ul>
-<p>An additional complication comes from the fact that the encoding and decoding step may differ based on situation. For example, during training we often want to apply some augmentation when encoding that would be detrimental to performance during inference.</p>
+<p>An additional complication comes from the fact that the encoding and decoding step may differ based on the context. For example, during training we often want to augment the inputs which would be detrimental to performance during inference.</p>
 <h2 id="in-code"><a href="#in-code" class="anchor"></a>In code</h2>
 <p>Let’s give those concepts variable names and generic types so we can refer to them more easily.</p>
 <table><thead><tr><th align="right">Concept</th><th align="left">Abstract code</th><th align="left">Image classification</th></tr></thead><tbody><tr><td align="right">Task</td><td align="left"><code>Task</code></td><td align="left"><code>ImageClassificationTask &lt;: Task</code></td></tr><tr><td align="right">Method</td><td align="left"><code>Method{Task}</code></td><td align="left"><code>ImageClassification &lt;: Method{ImageClassificationTask}</code></td></tr><tr><td align="right">Input</td><td align="left"><code>input::I</code></td><td align="left"><code>image::AbstractMatrix{&lt;:Colorant}</code></td></tr><tr><td align="right">Target</td><td align="left"><code>target::T</code></td><td align="left"><code>category::String</code></td></tr><tr><td align="right">Encoded input</td><td align="left"><code>x::X</code></td><td align="left"><code>x::AbstractArray{Float32, 3}</code></td></tr><tr><td align="right">Encoded target</td><td align="left"><code>y::Y</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr><tr><td align="right">Model output</td><td align="left"><code>ŷ::Ŷ</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr></tbody></table>

@@ -17,9 +17,10 @@
     <script src="..&#x2F;..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;..&#x2F;publish.js"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
     <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
@@ -35,7 +36,7 @@
         <select id="version-selector"></select>
     </div>
     <main id="page"><article><h1 id="image-classification"><a href="#image-classification" class="anchor"></a>Image classification</h1>
-<p><em>See <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a> for complete documentation of its arguments</em></p>
+<p><em>See <a href="../../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a> for complete documentation of its arguments.</em></p>
 <p>Let’s explore what you can do with the <a href="../../docstrings/DLPipelines.Method.html"><code>Method</code></a> interface implemented. We’re using
 <a href="https://github.com/lorenzoh/DLDatasets.jl">DLDatasets.jl</a> to access <em>ImageNette</em>, a small
 image classification dataset. Install the package using</p>
@@ -43,7 +44,7 @@ image classification dataset. Install the package using</p>
 <pre><code style="display:none" cell="main" result="false" class="language-julia">ENV[&quot;DATADEPS_ALWAYS_ACCEPT&quot;] = &quot;true&quot;
 ENV[&quot;CI&quot;] = &quot;false&quot;
 </code></pre>
-<pre><code cell="main" class="language-julia">using DLPipelines
+<pre><code output="false" cell="main" class="language-julia">using DLPipelines
 using DLDatasets
 using LearnBase: getobs
 </code></pre>

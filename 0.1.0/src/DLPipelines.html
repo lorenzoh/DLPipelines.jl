@@ -17,9 +17,10 @@
     <script src="..&#x2F;julia-repl.min.js"></script>
     <script src="..&#x2F;publish.js"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
     <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
@@ -45,6 +46,7 @@ using DataAugmentation
 using Flux
 using FluxTraining
 using MLDataUtils
+using MosaicViews
 using LearnBase
 using StaticArrays
 using Parameters
@@ -64,6 +66,7 @@ using Parameters
 <pre><code class="language-julia">export MethodDataset
 
 # TODO: [`inference.jl`](./inference.jl)
+export predict, predictbatch
 </code></pre>
 <h3 id="optional-interfaces"><a href="#optional-interfaces" class="anchor"></a>Optional interfaces</h3>
 <ul>

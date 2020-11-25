@@ -201,7 +201,7 @@ uuid = "eb7515f2-3d1a-4576-a673-d8979fdf546c"
 version = "0.1.0"
 
 [[DLPipelines]]
-deps = ["Colors", "DataAugmentation", "DataLoaders", "Flux", "FluxTraining", "LearnBase", "MLDataUtils", "Parameters", "StaticArrays"]
+deps = ["Colors", "DataAugmentation", "DataLoaders", "Flux", "FluxTraining", "LearnBase", "MLDataUtils", "MosaicViews", "Parameters", "StaticArrays"]
 path = ".."
 uuid = "e6530d7c-7faa-4ede-a0d6-9eff9baad396"
 version = "0.1.0"
