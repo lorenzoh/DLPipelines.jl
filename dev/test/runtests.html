@@ -70,10 +70,7 @@ using StaticArrays
     @testset ExtendedTestSet &quot;keypoints&quot; begin
         transform = SpatialTransforms((32, 32))
         ks = [SVector(0, 0), SVector(64, 96)]
-        keypoints = Keypoints(
-            ks,
-            DataAugmentation.makebounds(64, 96),
-        )
+        keypoints = Keypoints(ks, (64, 96))
         kstrain = transform(Training(), keypoints)
         ksvalid = transform(Validation(), keypoints)
         ksinference = transform(Inference(), keypoints)
@@ -124,16 +121,177 @@ end
     end
 end
 </code></pre>
-<pre><code class="plaintext cell-output cell-stream">...........
+<pre><code class="plaintext cell-output cell-stream">
+=====================================================
+image: Error During Test at string:11
+  Got exception outside of a @test
+  UndefVarError: ResizePadDivisible not defined
+  Stacktrace:
+   [1] SpatialTransforms(::Tuple{Int64,Int64}; augmentations::DataAugmentation.Identity, inferencefactor::Int64) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [2] SpatialTransforms(::Tuple{Int64,Int64}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [3] top-level scope at string:12
+   [4] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [5] top-level scope at string:12
+   [6] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [7] top-level scope at string:11
+   [8] include_string(::Function, ::Module, ::String, ::String) at ./loading.jl:1088
+   [9] include_string at ./loading.jl:1096 [inlined] (repeats 2 times)
+   [10] #43 at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:77 [inlined]
+   [11] (::Publish.var&quot;#48#49&quot;{Publish.var&quot;#43#44&quot;{Publish.Cell,Module},Base.PipeEndpoint,Base.PipeEndpoint,Pipe,Array{UInt8,1}})() at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:185
+   [12] with_logstate(::Function, ::Any) at ./logging.jl:408
+   [13] with_logger at ./logging.jl:514 [inlined]
+   [14] capture_output at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:183 [inlined]
+   [15] display_as(::typeof(CommonMark.write_html), ::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::Array{MIME,1}) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:76
+   [16] write_html(::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node, ::Bool) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:211
+   [17] write_html(::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:34
+   [18] show(::Base.GenericIOBuffer{Array{UInt8,1}}, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:5
+   [19] sprint(::Function, ::MIME{Symbol(&quot;text/html&quot;)}, ::Vararg{Any,N} where N; context::Nothing, sizehint::Int64) at ./strings/io.jl:105
+   [20] sprint at ./strings/io.jl:101 [inlined]
+   [21] writer(::IOStream, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:15
+   [22] writer at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:5 [inlined]
+   [23] html at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:8 [inlined]
+   [24] #59 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:70 [inlined]
+   [25] open(::Publish.var&quot;#59#64&quot;{Dict{String,Any},Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
+   [26] open at ./io.jl:323 [inlined]
+   [27] #58 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:67 [inlined]
+   [28] cd(::Publish.var&quot;#58#63&quot;{Dict{String,Any},String,Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String) at ./file.jl:104
+   [29] (::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String})(::Dict{String,Any}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:66
+   [30] relative_paths(::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String}, ::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:188
+   [31] relative_paths at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:190 [inlined]
+   [32] _html(::Publish.Project, ::CommonMark.Node, ::FilePathsBase.PosixPath, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:62
+   [33] _html(::Publish.Project, ::FileTrees.FileTree, ::FileTrees.File, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:48
+   [34] (::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project})(::FileTrees.File) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [35] save(::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project}, ::FileTrees.FileTree) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:16
+   [36] (::Publish.var&quot;#51#53&quot;{Publish.Project})() at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [37] cd(::Publish.var&quot;#51#53&quot;{Publish.Project}, ::String) at ./file.jl:104
+   [38] sandbox at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:12 [inlined]
+   [39] html(::Publish.Project, ::String; keywords::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:31
+   [40] html(::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:27
+   [41] deploy(::Module, ::String, ::typeof(html); versioned::Bool, named::Bool, force::Bool, label::String, root::String, kws::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/deploy.jl:99
+   [42] top-level scope at /home/runner/work/DLPipelines.jl/DLPipelines.jl/docs/make.jl:7
+   [43] include(::Function, ::Module, ::String) at ./Base.jl:380
+   [44] include(::Module, ::String) at ./Base.jl:368
+   [45] exec_options(::Base.JLOptions) at ./client.jl:296
+   [46] _start() at ./client.jl:506
+  
+=====================================================
 
-Test Summary:       | Pass  Total
-`SpatialTransforms` |   11     11
-.....
+=====================================================
+keypoints: Error During Test at string:33
+  Got exception outside of a @test
+  UndefVarError: ResizePadDivisible not defined
+  Stacktrace:
+   [1] SpatialTransforms(::Tuple{Int64,Int64}; augmentations::DataAugmentation.Identity, inferencefactor::Int64) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [2] SpatialTransforms(::Tuple{Int64,Int64}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [3] top-level scope at string:34
+   [4] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [5] top-level scope at string:34
+   [6] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [7] top-level scope at string:11
+   [8] include_string(::Function, ::Module, ::String, ::String) at ./loading.jl:1088
+   [9] include_string at ./loading.jl:1096 [inlined] (repeats 2 times)
+   [10] #43 at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:77 [inlined]
+   [11] (::Publish.var&quot;#48#49&quot;{Publish.var&quot;#43#44&quot;{Publish.Cell,Module},Base.PipeEndpoint,Base.PipeEndpoint,Pipe,Array{UInt8,1}})() at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:185
+   [12] with_logstate(::Function, ::Any) at ./logging.jl:408
+   [13] with_logger at ./logging.jl:514 [inlined]
+   [14] capture_output at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:183 [inlined]
+   [15] display_as(::typeof(CommonMark.write_html), ::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::Array{MIME,1}) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:76
+   [16] write_html(::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node, ::Bool) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:211
+   [17] write_html(::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:34
+   [18] show(::Base.GenericIOBuffer{Array{UInt8,1}}, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:5
+   [19] sprint(::Function, ::MIME{Symbol(&quot;text/html&quot;)}, ::Vararg{Any,N} where N; context::Nothing, sizehint::Int64) at ./strings/io.jl:105
+   [20] sprint at ./strings/io.jl:101 [inlined]
+   [21] writer(::IOStream, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:15
+   [22] writer at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:5 [inlined]
+   [23] html at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:8 [inlined]
+   [24] #59 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:70 [inlined]
+   [25] open(::Publish.var&quot;#59#64&quot;{Dict{String,Any},Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
+   [26] open at ./io.jl:323 [inlined]
+   [27] #58 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:67 [inlined]
+   [28] cd(::Publish.var&quot;#58#63&quot;{Dict{String,Any},String,Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String) at ./file.jl:104
+   [29] (::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String})(::Dict{String,Any}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:66
+   [30] relative_paths(::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String}, ::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:188
+   [31] relative_paths at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:190 [inlined]
+   [32] _html(::Publish.Project, ::CommonMark.Node, ::FilePathsBase.PosixPath, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:62
+   [33] _html(::Publish.Project, ::FileTrees.FileTree, ::FileTrees.File, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:48
+   [34] (::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project})(::FileTrees.File) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [35] save(::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project}, ::FileTrees.FileTree) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:16
+   [36] (::Publish.var&quot;#51#53&quot;{Publish.Project})() at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [37] cd(::Publish.var&quot;#51#53&quot;{Publish.Project}, ::String) at ./file.jl:104
+   [38] sandbox at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:12 [inlined]
+   [39] html(::Publish.Project, ::String; keywords::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:31
+   [40] html(::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:27
+   [41] deploy(::Module, ::String, ::typeof(html); versioned::Bool, named::Bool, force::Bool, label::String, root::String, kws::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/deploy.jl:99
+   [42] top-level scope at /home/runner/work/DLPipelines.jl/DLPipelines.jl/docs/make.jl:7
+   [43] include(::Function, ::Module, ::String) at ./Base.jl:380
+   [44] include(::Module, ::String) at ./Base.jl:368
+   [45] exec_options(::Base.JLOptions) at ./client.jl:296
+   [46] _start() at ./client.jl:506
+  
+=====================================================
 
-Test Summary:         | Pass  Total
-`ImageClassification` |    5      5
+=====================================================
+image and keypoints: Error During Test at string:45
+  Got exception outside of a @test
+  UndefVarError: ResizePadDivisible not defined
+  Stacktrace:
+   [1] SpatialTransforms(::Tuple{Int64,Int64}; augmentations::DataAugmentation.Identity, inferencefactor::Int64) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [2] SpatialTransforms(::Tuple{Int64,Int64}) at /home/runner/work/DLPipelines.jl/DLPipelines.jl/src/transforms/spatial.jl:24
+   [3] top-level scope at string:46
+   [4] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [5] top-level scope at string:46
+   [6] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.5/Test/src/Test.jl:1115
+   [7] top-level scope at string:11
+   [8] include_string(::Function, ::Module, ::String, ::String) at ./loading.jl:1088
+   [9] include_string at ./loading.jl:1096 [inlined] (repeats 2 times)
+   [10] #43 at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:77 [inlined]
+   [11] (::Publish.var&quot;#48#49&quot;{Publish.var&quot;#43#44&quot;{Publish.Cell,Module},Base.PipeEndpoint,Base.PipeEndpoint,Pipe,Array{UInt8,1}})() at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:185
+   [12] with_logstate(::Function, ::Any) at ./logging.jl:408
+   [13] with_logger at ./logging.jl:514 [inlined]
+   [14] capture_output at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:183 [inlined]
+   [15] display_as(::typeof(CommonMark.write_html), ::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::Array{MIME,1}) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:76
+   [16] write_html(::Publish.Cell, ::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node, ::Bool) at /home/runner/.julia/packages/Publish/8P4za/src/cells.jl:211
+   [17] write_html(::CommonMark.Writer{CommonMark.HTML,Base.GenericIOBuffer{Array{UInt8,1}}}, ::CommonMark.Node) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:34
+   [18] show(::Base.GenericIOBuffer{Array{UInt8,1}}, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:5
+   [19] sprint(::Function, ::MIME{Symbol(&quot;text/html&quot;)}, ::Vararg{Any,N} where N; context::Nothing, sizehint::Int64) at ./strings/io.jl:105
+   [20] sprint at ./strings/io.jl:101 [inlined]
+   [21] writer(::IOStream, ::MIME{Symbol(&quot;text/html&quot;)}, ::CommonMark.Node, ::Dict{String,Any}) at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:15
+   [22] writer at /home/runner/.julia/packages/CommonMark/tT85V/src/writers.jl:5 [inlined]
+   [23] html at /home/runner/.julia/packages/CommonMark/tT85V/src/writers/html.jl:8 [inlined]
+   [24] #59 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:70 [inlined]
+   [25] open(::Publish.var&quot;#59#64&quot;{Dict{String,Any},Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String, ::Vararg{String,N} where N; kwargs::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at ./io.jl:325
+   [26] open at ./io.jl:323 [inlined]
+   [27] #58 at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:67 [inlined]
+   [28] cd(::Publish.var&quot;#58#63&quot;{Dict{String,Any},String,Publish.Project,CommonMark.Node,FilePathsBase.PosixPath}, ::String) at ./file.jl:104
+   [29] (::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String})(::Dict{String,Any}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:66
+   [30] relative_paths(::Publish.var&quot;#57#62&quot;{Publish.Project,CommonMark.Node,FilePathsBase.PosixPath,String}, ::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:188
+   [31] relative_paths at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:190 [inlined]
+   [32] _html(::Publish.Project, ::CommonMark.Node, ::FilePathsBase.PosixPath, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:62
+   [33] _html(::Publish.Project, ::FileTrees.FileTree, ::FileTrees.File, ::Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:48
+   [34] (::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project})(::FileTrees.File) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [35] save(::Publish.var&quot;#52#54&quot;{Dict{FilePathsBase.PosixPath,NamedTuple{(:prev, :next),Tuple{FilePathsBase.PosixPath,FilePathsBase.PosixPath}}},Publish.Project}, ::FileTrees.FileTree) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:16
+   [36] (::Publish.var&quot;#51#53&quot;{Publish.Project})() at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:38
+   [37] cd(::Publish.var&quot;#51#53&quot;{Publish.Project}, ::String) at ./file.jl:104
+   [38] sandbox at /home/runner/.julia/packages/Publish/8P4za/src/utilities.jl:12 [inlined]
+   [39] html(::Publish.Project, ::String; keywords::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:31
+   [40] html(::Publish.Project, ::String) at /home/runner/.julia/packages/Publish/8P4za/src/save.jl:27
+   [41] deploy(::Module, ::String, ::typeof(html); versioned::Bool, named::Bool, force::Bool, label::String, root::String, kws::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{(),Tuple{}}}) at /home/runner/.julia/packages/Publish/8P4za/src/deploy.jl:99
+   [42] top-level scope at /home/runner/work/DLPipelines.jl/DLPipelines.jl/docs/make.jl:7
+   [43] include(::Function, ::Module, ::String) at ./Base.jl:380
+   [44] include(::Module, ::String) at ./Base.jl:368
+   [45] exec_options(::Base.JLOptions) at ./client.jl:296
+   [46] _start() at ./client.jl:506
+  
+=====================================================
+
+
+Test Summary:         | Error  Total
+`SpatialTransforms`   |     3      3
+  image               |     1      1
+  keypoints           |     1      1
+  image and keypoints |     1      1
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">Test.DefaultTestSet(&quot;`ImageClassification`&quot;, Any[Test.DefaultTestSet(&quot;Core interface&quot;, Any[Test.DefaultTestSet(&quot;`encodeinput`&quot;, Any[], 4, false), Test.DefaultTestSet(&quot;`encodetarget`&quot;, Any[], 0, false), Test.DefaultTestSet(&quot;`encode`&quot;, Any[], 1, false)], 0, false)], 0, false)</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 10, Some tests did not pass: 0 passed, 0 failed, 3 errored, 0 broken.)</code></pre>
 </article>
         <div id="page-navigation">
             <a id="previous-page" title="Previous" href="..&#x2F;src&#x2F;methods&#x2F;imageclassification.html"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z" fill="currentColor" /></svg></a>

@@ -82,7 +82,7 @@ categories = metadata(ImageNette).labels
 the proper configuration:</p>
 <pre><code cell="main" class="language-julia">method = ImageClassification(categories, sz = (128, 128))
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">ImageClassification() with 10 categories.</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:ResizePadDivisible))</code></pre>
 <p>After splitting the dataset into training and validation split, we can use
 <a href="../../docstrings/DLPipelines.MethodDataset.html"><code>MethodDataset</code></a> to get data containers that will encode the
 observations.</p>
@@ -90,11 +90,7 @@ observations.</p>
 traindataset = MethodDataset(traindataset_, method, Training())
 validdataset = MethodDataset(validdataset_, method, Validation())
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">MethodDataset{ImageClassification}
-  data: MLDataPattern.DataSubset{DLDatasets.FileDataset,UnitRange{Int64},LearnBase.ObsDim.Undefined}
-  method: ImageClassification
-  context: Validation Validation()
-</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 2, UndefVarError(:method))</code></pre>
 <p>By passing either <a href="../../docstrings/DLPipelines.Training.html"><code>Training</code></a> or <a href="../../docstrings/DLPipelines.Validation.html"><code>Validation</code></a> as <a href="../../docstrings/DLPipelines.Context.html"><code>Context</code></a>
 to the datasets, the correct transformations will be automatically applied.
 For example, a random crop will be used for the <code>traindataset</code>, while
@@ -104,7 +100,7 @@ images in <code>validdataset</code> will always be cropped from the center.</p>
 <pre><code cell="main" class="language-julia">x, y = getobs(traindataset, 1)
 summary.((x, y))
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">(&quot;128×128×3 Array{Float32,3}&quot;, &quot;10-element Array{Float32,1}&quot;)</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:traindataset))</code></pre>
 <p>To finally get an iterator over batches, we can use <code>DataLoader</code> from
 <a href="https://lorenzoh.github.io/DataLoaders.jl/dev/README.html">DataLoaders.jl</a>.
 It will also make sure to prefetch the data on background threads so that
@@ -116,7 +112,7 @@ validdl = DataLoader(validdataset, batchsize)
 <p>Now we can create a <code>Learner</code>:</p>
 <pre><code cell="main" class="language-julia">learner = Learner(model, (traindl, validdl), optimizer, lossfn)
 </code></pre>
-<pre><code class="plaintext cell-output cell-result" class="language-plaintext">Learner()</code></pre>
+<pre><code class="plaintext cell-output cell-result" class="language-plaintext">LoadError(&quot;string&quot;, 1, UndefVarError(:traindl))</code></pre>
 <p>You can pass any number of
 <a href="https://lorenzoh.github.io/FluxTraining.jl/dev/docs/callbacks/reference.html">callbacks</a>
 to <code>Learner</code>, for example <code>ToGPU()</code> to utilize your GPU when training.</p>
