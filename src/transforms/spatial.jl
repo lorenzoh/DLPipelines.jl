@@ -22,9 +22,9 @@ function SpatialTransforms(
         inferencefactor = 1)
 
     return SpatialTransforms(
-        RandomResizeCrop(size) |> augmentations,
+        augmentations |> RandomResizeCrop(size),
         CenterResizeCrop(size),
-        ResizeDivisible(size, divisible = inferencefactor),
+        ResizePadDivisible(size, inferencefactor),
     )
 
 end
@@ -44,10 +44,17 @@ _gettfm(spatial::SpatialTransforms, context::Validation) = spatial.validtfm
 _gettfm(spatial::SpatialTransforms, context::Inference) = spatial.inferencetfm
 
 
-makespatialitems(datas::Tuple) = makespatialitems(datas, getbounds(first(datas)))
+function makespatialitems(datas::Tuple)
+    if datas[begin] isa Item
+        return makespatialitems(datas, getbounds(datas[begin]))
+    else
+        return makespatialitems(datas, makebounds(size(datas[begin])))
+    end
+end
 function makespatialitems(datas::Tuple, bounds)
     return Tuple(makeitem(data, bounds) for data in datas)
 end
+
 
 
 """

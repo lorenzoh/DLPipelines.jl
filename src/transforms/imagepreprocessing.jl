@@ -15,7 +15,7 @@ If no `means` or `stds` are given, use ImageNet statistics.
 end
 
 function (ip::ImagePreprocessing)(image)
-    tfms = ToEltype{ip.C}() |> SplitChannels() |> Normalize(ip.means, ip.stds)
+    tfms = ToEltype(ip.C) |> ImageToTensor() |> Normalize(ip.means, ip.stds)
     apply(tfms, DataAugmentation.Image(image)) |> itemdata
 end
 

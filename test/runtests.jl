@@ -34,10 +34,7 @@ using StaticArrays
     @testset ExtendedTestSet "keypoints" begin
         transform = SpatialTransforms((32, 32))
         ks = [SVector(0, 0), SVector(64, 96)]
-        keypoints = Keypoints(
-            ks,
-            DataAugmentation.makebounds(64, 96),
-        )
+        keypoints = Keypoints(ks, (64, 96))
         kstrain = transform(Training(), keypoints)
         ksvalid = transform(Validation(), keypoints)
         ksinference = transform(Inference(), keypoints)

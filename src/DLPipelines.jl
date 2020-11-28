@@ -10,6 +10,7 @@ using Colors
 using DataLoaders
 using DataLoaders: obsslices #src
 using DataAugmentation
+using DataAugmentation: makebounds
 using Flux
 using FluxTraining
 using MLDataUtils
