@@ -213,9 +213,9 @@ version = "0.21.8"
 
 [[DataLoaders]]
 deps = ["DocStringExtensions", "LearnBase", "MLDataPattern", "Parameters", "Random", "ThreadPools"]
-git-tree-sha1 = "6d656539a96ca9284bc132805423018092f54e46"
+git-tree-sha1 = "5ca678562d2cbb0417f56b31ef083b31c654c9ce"
 uuid = "2e981812-ef13-4a9c-bfa0-ab13047b12a9"
-version = "0.1.1"
+version = "0.1.2"
 
 [[DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
