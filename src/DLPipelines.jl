@@ -12,6 +12,7 @@ using DataLoaders: obsslices #src
 using DataAugmentation
 using DataAugmentation: InplaceThreadsafe
 using FixedPointNumbers
+using DataAugmentation: makebounds
 using Flux
 using FluxTraining
 using MLDataUtils

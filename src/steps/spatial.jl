@@ -22,10 +22,10 @@ function SpatialTransforms(
         inferencefactor = 1,
         buffered = true)
     tfms = (
-        RandomResizeCrop(size) |> augmentations,
+        augmentations |> RandomResizeCrop(size),
         CenterResizeCrop(size),
-        ResizeDivisible(size, divisible = inferencefactor),
-    )
+        ResizePadDivisible(size, inferencefactor),
+
     if buffered
         tfms = InplaceThreadsafe.(tfms)
     end
@@ -44,7 +44,6 @@ function apply!(bufs, spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
     t = tfm.inplaces[1]
-    #@time DataAugmentation.apply(tfm.inplaces[1], items)
     tdatas = itemdata.(DataAugmentation.apply(tfm, items))
     copy!.(bufs, tdatas)
     return bufs
@@ -61,11 +60,17 @@ _gettfm(spatial::SpatialTransforms, context::Validation) = spatial.validtfm
 _gettfm(spatial::SpatialTransforms, context::Inference) = spatial.inferencetfm
 
 
-makespatialitems(items::NTuple{N, Item}) where N = items
-makespatialitems(datas::Tuple) = makespatialitems(datas, size(first(datas)))
-function makespatialitems(datas::Tuple, sz)
-    return Tuple(makeitem(data, sz) for data in datas)
+function makespatialitems(datas::Tuple)
+    if datas[begin] isa Item
+        return makespatialitems(datas, getbounds(datas[begin]))
+    else
+        return makespatialitems(datas, makebounds(size(datas[begin])))
+    end
 end
+function makespatialitems(datas::Tuple, bounds)
+    return Tuple(makeitem(data, bounds) for data in datas)
+end
+
 
 
 """
