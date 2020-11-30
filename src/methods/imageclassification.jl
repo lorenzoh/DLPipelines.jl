@@ -40,10 +40,11 @@ function ImageClassification(
         augmentations = Identity(),
         means = IMAGENET_MEANS,
         stds = IMAGENET_STDS,
-        C = RGB,
+        C = RGB{N0f8},
+        T = Float32
     )
     spatialtransforms = SpatialTransforms(sz, augmentations = augmentations)
-    imagepreprocessing = ImagePreprocessing(C, means, stds)
+    imagepreprocessing = ImagePreprocessing(means, stds; C = C, T = T)
     ImageClassification(categories, spatialtransforms, imagepreprocessing)
 end
 
@@ -56,8 +57,8 @@ function encodeinput(
         method::ImageClassification,
         context,
         image)
-    imagecropped = method.spatialtransforms(context, image)
-    x = method.imagepreprocessing(imagecropped)
+    imagecropped = apply(method.spatialtransforms, context, image)
+    x = apply(method.imagepreprocessing, context, imagecropped)
     return x
 end
 

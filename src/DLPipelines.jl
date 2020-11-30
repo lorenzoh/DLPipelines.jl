@@ -10,6 +10,8 @@ using Colors
 using DataLoaders
 using DataLoaders: obsslices #src
 using DataAugmentation
+using DataAugmentation: InplaceThreadsafe
+using FixedPointNumbers
 using Flux
 using FluxTraining
 using MLDataUtils
@@ -26,8 +28,9 @@ export Task, Method, Context, Training, Validation, Inference,
 # The transforms are defined under `transforms/`:
 # - [`transforms/spatial.jl`](transforms/spatial.jl)
 # - [`transforms/imagepreprocessing.jl`](transforms/imagepreprocessing.jl)
-include("./transforms/spatial.jl")  #src
-include("./transforms/imagepreprocessing.jl")  #src
+include("./steps/step.jl")  #src
+include("./steps/spatial.jl")  #src
+include("./steps/imagepreprocessing.jl")  #src
 export SpatialTransforms, ImagePreprocessing
 
 # [`dataset.jl`](./dataset.jl)
