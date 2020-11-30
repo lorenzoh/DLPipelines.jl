@@ -17,7 +17,8 @@ function ImagePreprocessing(
         stds::SVector{N} = IMAGENET_STDS;
         C = RGB{N0f8},
         T = Float32) where N
-    tfms = ToEltype{C}() |> ImageToTensor(T) |> Normalize(means, stds)
+    # TODO: tensor of type T
+    tfms = ToEltype(C) |> ImageToTensor() |> Normalize(means, stds)
 
     return ImagePreprocessing(InplaceThreadsafe(tfms))
 end
