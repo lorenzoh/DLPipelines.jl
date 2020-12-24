@@ -11,6 +11,6 @@ end
 
 function predictbatch(method, model, inputs; device = gpu, context = Inference())
     xs = device(DataLoaders.collate([encodeinput(method, context, input) for input in inputs]))
-    @time ŷs = model(xs)
+    ŷs = model(xs)
     targets = [decodeŷ(method, context, ŷ) for ŷ in obsslices(cpu(ŷs))]
 end

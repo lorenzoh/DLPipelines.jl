@@ -26,10 +26,6 @@ using StaticArrays
 
         ## During inference, the aspect ratio should stay the same
         @test size(image, 1) / size(image, 2) == size(imageinference, 1) / size(imageinference, 2)
-
-        ## Training and validation image should be different since
-        ## the first uses a random crop, and the second a center crop
-        @test !all(imagetrain .≈ imagevalid)
     end
 
     @testset ExtendedTestSet "keypoints" begin
@@ -63,7 +59,12 @@ end
     @test size(x) == (100, 100, 3)
     @test eltype(x) == Float32
 
+    image2 = rand(RGB, 100, 100)
+    buf = copy(x)
+    @test_nowarn apply!(buf, step, Training(), image2)
+    @test !(buf ≈ x)
 end
+
 
 @testset ExtendedTestSet "`ImageClassification`" begin
     @testset ExtendedTestSet "Core interface" begin

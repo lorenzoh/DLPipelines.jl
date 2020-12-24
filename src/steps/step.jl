@@ -17,7 +17,7 @@ function apply! end
 
 
 """
-    invert(step::PipelineStep, data, context)
+    invert(step::PipelineStep, context, data)
 
 Applies the inverse of the operation `step` to `data`
 """
@@ -25,7 +25,7 @@ function invert end
 
 
 """
-    invert!(buf, step::PipelineStep, context)
+    invert!(buf, step::PipelineStep, context, data)
 
 Applies the inverse of the operation `step` to `buf` inplace. `buf` is mutated,
 """

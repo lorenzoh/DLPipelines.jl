@@ -2,7 +2,7 @@
 abstract type ImageClassificationTask <: Task end
 
 """
-    ImageClassification(categories; [sz, augmentations, ...]) <: Method{ImageClassificationTask}
+    ImageClassification(categories, sz[; augmentations, ...]) <: Method{ImageClassificationTask}
     ImageClassification(n, ...)
 
 A [`Method`](#) for multi-class image classification using softmax probabilities.
@@ -32,11 +32,11 @@ mutable struct ImageClassification <: Method{ImageClassificationTask}
 end
 
 Base.show(io::IO, method::ImageClassification) = print(
-    io, "ImageClassification() with $(length(method.categories)) categories.")
+    io, "ImageClassification() with $(length(method.categories)) categories")
 
 function ImageClassification(
-        categories::AbstractVector;
-        sz = (224, 224),
+        categories::AbstractVector,
+        sz = (224, 224);
         augmentations = Identity(),
         means = IMAGENET_MEANS,
         stds = IMAGENET_STDS,

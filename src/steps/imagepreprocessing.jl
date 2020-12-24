@@ -9,18 +9,31 @@ finally normalizes the values using `means` and `stds`.
 If no `means` or `stds` are given, uses ImageNet statistics.
 """
 struct ImagePreprocessing
-    tfm
+    # hold one copy of the transform for every context
+    # in case the input sizes differ based on `context`
+    # since that would create problems with the buffers
+    traintfm
+    validtfm
+    inferencetfm
 end
 
 function ImagePreprocessing(
         means::SVector{N} = IMAGENET_MEANS,
         stds::SVector{N} = IMAGENET_STDS;
         C = RGB{N0f8},
-        T = Float32) where N
+        T = Float32,
+        buffered = true) where N
     # TODO: tensor of type T
-    tfms = ToEltype(C) |> ImageToTensor() |> Normalize(means, stds)
+    tfms = (
+        ToEltype(C) |> ImageToTensor() |> Normalize(means, stds),
+        ToEltype(C) |> ImageToTensor() |> Normalize(means, stds),
+        ToEltype(C) |> ImageToTensor() |> Normalize(means, stds),
+    )
+    if buffered
+        tfms = BufferedThreadsafe.(tfms)
+    end
 
-    return ImagePreprocessing(InplaceThreadsafe(tfms))
+    return ImagePreprocessing(tfms...)
 end
 
 
@@ -28,19 +41,30 @@ function ImagePreprocessing(means::NTuple{N}, stds::NTuple{N}; kwargs...) where 
     return ImagePreprocessing(SVector{N}(means), SVector{N}(stds); kwargs...)
 end
 
+Base.show(io::IO, ::ImagePreprocessing) = print(io, "ImagePreprocessing()")
 
-function apply(ip::ImagePreprocessing, ::Context, image)
-    return DataAugmentation.apply(ip.tfm, DataAugmentation.Image(image)) |> itemdata
+
+function apply(ip::ImagePreprocessing, context::Context, image)
+    tfm = _gettfm(ip, context)
+    return DataAugmentation.apply(tfm, DataAugmentation.Image(image)) |> itemdata
+end
+
+function apply!(x, ip::ImagePreprocessing, context::Context, image)
+    tfm = _gettfm(ip, context)
+    DataAugmentation.apply!(ArrayItem(x), tfm, DataAugmentation.Image(image)) |> itemdata
+    return x
 end
 
 
-function apply!(x, ip::ImagePreprocessing, ::Context, image)
-    return DataAugmentation.apply!(ArrayItem(x), ip.tfm, DataAugmentation.Image(image)) |> itemdata
-end
+_gettfm(ip::ImagePreprocessing, context::Training) = ip.traintfm
+_gettfm(ip::ImagePreprocessing, context::Validation) = ip.validtfm
+_gettfm(ip::ImagePreprocessing, context::Inference) = ip.inferencetfm
 
 
-function invert(ip::ImagePreprocessing, x)
-    return DataAugmentation.tensortoimage(DataAugmentation.denormalize(x, ip.means, ip.stds))
+
+function invert(ip::ImagePreprocessing, x::AbstractArray{T, N}) where {N, T}
+    tfm = _parenttfm(ip.traintfm).transforms[end]
+    return DataAugmentation.tensortoimage(DataAugmentation.denormalize(x, tfm.means, tfm.stds))
 end
 
 

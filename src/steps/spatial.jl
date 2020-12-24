@@ -10,7 +10,7 @@ Pipeline step that resizes images and keypoints to `size`.
 
 In context [`Training`](#), applies `augmentations`.
 """
-@with_kw struct SpatialTransforms <: PipelineStep
+@with_kw_noshow struct SpatialTransforms <: PipelineStep
     traintfm
     validtfm
     inferencetfm
@@ -25,11 +25,18 @@ function SpatialTransforms(
         augmentations |> RandomResizeCrop(size),
         CenterResizeCrop(size),
         ResizePadDivisible(size, inferencefactor),
+    )
 
     if buffered
-        tfms = InplaceThreadsafe.(tfms)
+        tfms = BufferedThreadsafe.(tfms)
     end
     return SpatialTransforms(tfms...)
+end
+
+
+function Base.show(io::IO, spatial::SpatialTransforms)
+    outsize = _parenttfm(spatial.validtfm).transforms[1].crop.size
+    print(io, "SpatialTransforms($(outsize))")
 end
 
 
@@ -37,15 +44,15 @@ function apply(spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
     tdatas = itemdata.(DataAugmentation.apply(tfm, items))
-    return copy.(tdatas)
+    return _copyrec(tdatas)
 end
+
 
 function apply!(bufs, spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
-    t = tfm.inplaces[1]
     tdatas = itemdata.(DataAugmentation.apply(tfm, items))
-    copy!.(bufs, tdatas)
+    _copyrec!(bufs, tdatas)
     return bufs
 end
 
@@ -70,7 +77,6 @@ end
 function makespatialitems(datas::Tuple, bounds)
     return Tuple(makeitem(data, bounds) for data in datas)
 end
-
 
 
 """
