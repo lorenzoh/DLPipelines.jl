@@ -76,10 +76,10 @@ function encodetarget end
     encode(method, context, sample) -> (x, y)
     encode(method, context, (input, target)) -> (x, y)
 
-Encode a `sample` containing both input and target .
+Encode a `sample` containing both input and target.
 
 If `sample` is a `Tuple` of (input, target), the default behavior is to
-pass them to [`encodeinput`](#) and [`encodetarget`](#)
+pass them to [`encodeinput`](#) and [`encodetarget`](#).
 
 ### Remarks
 
