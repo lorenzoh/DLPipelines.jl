@@ -2,7 +2,7 @@
 abstract type ImageClassificationTask <: Task end
 
 """
-    ImageClassification(categories; [sz, augmentations, ...]) <: Method{ImageClassificationTask}
+    ImageClassification(categories, sz[; augmentations, ...]) <: Method{ImageClassificationTask}
     ImageClassification(n, ...)
 
 A [`Method`](#) for multi-class image classification using softmax probabilities.
@@ -32,18 +32,19 @@ mutable struct ImageClassification <: Method{ImageClassificationTask}
 end
 
 Base.show(io::IO, method::ImageClassification) = print(
-    io, "ImageClassification() with $(length(method.categories)) categories.")
+    io, "ImageClassification() with $(length(method.categories)) categories")
 
 function ImageClassification(
-        categories::AbstractVector;
-        sz = (224, 224),
+        categories::AbstractVector,
+        sz = (224, 224);
         augmentations = Identity(),
         means = IMAGENET_MEANS,
         stds = IMAGENET_STDS,
-        C = RGB,
+        C = RGB{N0f8},
+        T = Float32
     )
     spatialtransforms = SpatialTransforms(sz, augmentations = augmentations)
-    imagepreprocessing = ImagePreprocessing(C, means, stds)
+    imagepreprocessing = ImagePreprocessing(means, stds; C = C, T = T)
     ImageClassification(categories, spatialtransforms, imagepreprocessing)
 end
 
@@ -56,8 +57,8 @@ function encodeinput(
         method::ImageClassification,
         context,
         image)
-    imagecropped = method.spatialtransforms(context, image)
-    x = method.imagepreprocessing(imagecropped)
+    imagecropped = apply(method.spatialtransforms, context, image)
+    x = apply(method.imagepreprocessing, context, imagecropped)
     return x
 end
 

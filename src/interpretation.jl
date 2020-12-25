@@ -1,12 +1,12 @@
 
 # Interpretation
-function interpretsample(method, sample) end
-function interpretinput(method, input) end
-function interprettarget(method, target) end
-function interpretx(method, x) end
-function interpretŷ(method, ŷ) end
-function interprety(method, y) end
-function interpretstep(method, x, y, ŷ) end
+function interpretsample end
+function interpretinput end
+function interprettarget end
+function interpretx end
+function interpretŷ end
+function interprety end
+function interpretstep end
 
 
 function interpretstepbatch(method, xs, ys, ŷs)

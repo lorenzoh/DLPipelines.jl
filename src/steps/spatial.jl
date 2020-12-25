@@ -6,11 +6,11 @@
 """
     SpatialTransforms(size, [augmentations])
 
-Transformation that resizes images and keypoints to `size`.
+Pipeline step that resizes images and keypoints to `size`.
 
 In context [`Training`](#), applies `augmentations`.
 """
-@with_kw struct SpatialTransforms
+@with_kw_noshow struct SpatialTransforms <: PipelineStep
     traintfm
     validtfm
     inferencetfm
@@ -19,25 +19,48 @@ end
 function SpatialTransforms(
         size;
         augmentations = Identity(),
-        inferencefactor = 1)
-
-    return SpatialTransforms(
+        inferencefactor = 1,
+        buffered = true)
+    tfms = (
         augmentations |> RandomResizeCrop(size),
         CenterResizeCrop(size),
         ResizePadDivisible(size, inferencefactor),
     )
 
+    if buffered
+        tfms = BufferedThreadsafe.(tfms)
+    end
+    return SpatialTransforms(tfms...)
 end
 
 
-function (spatial::SpatialTransforms)(context, datas::Tuple)
+function Base.show(io::IO, spatial::SpatialTransforms)
+    outsize = _parenttfm(spatial.validtfm).transforms[1].crop.size
+    print(io, "SpatialTransforms($(outsize))")
+end
+
+
+function apply(spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
-    return itemdata.(apply(tfm, items))
+    tdatas = itemdata.(DataAugmentation.apply(tfm, items))
+    return _copyrec(tdatas)
 end
 
-(spatial::SpatialTransforms)(context, data) = spatial(context, (data,)) |> only
 
+function apply!(bufs, spatial::SpatialTransforms, context, datas::Tuple)
+    items = makespatialitems(datas)
+    tfm = _gettfm(spatial, context)
+    tdatas = itemdata.(DataAugmentation.apply(tfm, items))
+    _copyrec!(bufs, tdatas)
+    return bufs
+end
+
+apply(spatial::SpatialTransforms, context, data) = apply(spatial, context, (data,)) |> only
+apply!(buf, spatial::SpatialTransforms, context, data) = apply!((buf,), spatial, context, (data,)) |> only
+
+
+## Utils
 
 _gettfm(spatial::SpatialTransforms, context::Training) = spatial.traintfm
 _gettfm(spatial::SpatialTransforms, context::Validation) = spatial.validtfm
@@ -54,7 +77,6 @@ end
 function makespatialitems(datas::Tuple, bounds)
     return Tuple(makeitem(data, bounds) for data in datas)
 end
-
 
 
 """

@@ -10,7 +10,9 @@ using Colors
 using DataLoaders
 using DataLoaders: obsslices #src
 using DataAugmentation
-using DataAugmentation: makebounds
+using DataAugmentation: BufferedThreadsafe
+using FixedPointNumbers
+using DataAugmentation: getbounds, makebounds
 using Flux
 using FluxTraining
 using MLDataUtils
@@ -18,17 +20,20 @@ using MosaicViews
 using LearnBase
 using StaticArrays
 using Parameters
+using Test
 
 # [`task.jl`](./task.jl) defines the [task and method interface](../docs/interfaces/core.md).
 include("./task.jl") #src
 export Task, Method, Context, Training, Validation, Inference,
-    encode, encodeinput, encodetarget
+    encode, encodeinput, encodetarget, encode!
 #
 # The transforms are defined under `transforms/`:
 # - [`transforms/spatial.jl`](transforms/spatial.jl)
 # - [`transforms/imagepreprocessing.jl`](transforms/imagepreprocessing.jl)
-include("./transforms/spatial.jl")  #src
-include("./transforms/imagepreprocessing.jl")  #src
+include("./steps/utils.jl")  #src
+include("./steps/step.jl")  #src
+include("./steps/spatial.jl")  #src
+include("./steps/imagepreprocessing.jl")  #src
 export SpatialTransforms, ImagePreprocessing
 
 # [`dataset.jl`](./dataset.jl)
@@ -49,6 +54,8 @@ include("./interpretation.jl")  #src
 export interpretsample, interpretinput, interprettarget,
     interpretx, interprety, interpretŷ
 include("./training.jl")  #src
+
+include("./checks.jl")  #src
 
 # ### Method implementations
 # - [`methods/imageclassification.jl`](./methods/imageclassification.jl)
