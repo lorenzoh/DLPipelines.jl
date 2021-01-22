@@ -43,4 +43,4 @@ function methoddataloaders(datas::NTuple{2}, method; batchsize = 16, kwargs...)
 end
 
 methoddataloaders(data, method; pctgval = 0.2, kwargs...) =
-    methoddataloaders(splitobs(data, at = pctgval); kwargs...)
+    methoddataloaders(splitobs(data, at = pctgval), method; kwargs...)

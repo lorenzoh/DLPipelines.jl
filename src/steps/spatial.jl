@@ -28,8 +28,11 @@ function SpatialTransforms(
     )
 
     if buffered
-        tfms = BufferedThreadsafe.(tfms)
+        # FIXME: Using inplace spatial transforms leads to
+        # out-of-bounds crops
+        #tfms = BufferedThreadsafe.(tfms)
     end
+
     return SpatialTransforms(tfms...)
 end
 
@@ -43,8 +46,7 @@ end
 function apply(spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
-    tdatas = itemdata.(DataAugmentation.apply(tfm, items))
-    return _copyrec(tdatas)
+    return itemdata.(DataAugmentation.apply(tfm, items))
 end
 
 
@@ -52,6 +54,7 @@ function apply!(bufs, spatial::SpatialTransforms, context, datas::Tuple)
     items = makespatialitems(datas)
     tfm = _gettfm(spatial, context)
     tdatas = itemdata.(DataAugmentation.apply(tfm, items))
+    return tdatas
     _copyrec!(bufs, tdatas)
     return bufs
 end

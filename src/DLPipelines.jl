@@ -49,6 +49,9 @@ export
     # Derived functionality
     methoddataset, methoddataloaders, predict, predictbatch,
 
+    # Training interface
+    methodmodel, methodlossfn,
+
     # Pipeline steps
     SpatialTransforms, ImagePreprocessing,
 

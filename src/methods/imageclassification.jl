@@ -90,6 +90,17 @@ end
 
 # Training interface
 
+function methodmodel(method::ImageClassification, backbone)
+    h, w, ch, b = Flux.outdims(backbone, (method.sz..., 3, 1))
+    return Chain(
+        backbone,
+        Chain(
+            AdaptiveMeanPool((1,1)),
+            flatten,
+            Dense(ch, length(method.categories)),
+        )
+    )
+end
 
 # Testing interface
 
