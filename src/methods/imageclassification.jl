@@ -26,6 +26,7 @@ are applied.
 - output size: `(nclasses, batch)`
 """
 mutable struct ImageClassification <: Method{ImageClassificationTask}
+    sz::Tuple{Int, Int}
     categories::AbstractVector
     spatialtransforms::SpatialTransforms
     imagepreprocessing::ImagePreprocessing
@@ -45,13 +46,13 @@ function ImageClassification(
     )
     spatialtransforms = SpatialTransforms(sz, augmentations = augmentations)
     imagepreprocessing = ImagePreprocessing(means, stds; C = C, T = T)
-    ImageClassification(categories, spatialtransforms, imagepreprocessing)
+    ImageClassification(sz, categories, spatialtransforms, imagepreprocessing)
 end
 
 ImageClassification(n::Int, args...; kwargs...) = ImageClassification(1:n, args...; kwargs...)
 
 
-# core interface implementation
+# Core interface implementation
 
 function encodeinput(
         method::ImageClassification,
@@ -73,12 +74,36 @@ end
 
 decodeŷ(method::ImageClassification, context, ŷ) = method.categories[argmax(ŷ)]
 
+# Interpetration interface
+
 interpretinput(task::ImageClassification, image) = image
 
 function interpretx(task::ImageClassification, x)
     return invert(task.imagepreprocessing, x)
 end
 
+
 function interprettarget(task::ImageClassification, class)
     return "Class $class"
+end
+
+
+# Training interface
+
+
+# Testing interface
+
+function mockinput(method)
+    inputsz = rand.(UnitRange.(method.sz, method.sz .* 2))
+    return rand(RGB{N0f8}, inputsz)
+end
+
+
+function mocktarget(method)
+    rand(1:length(method.categories))
+end
+
+
+function mockmodel(method)
+    return xs -> rand(Float32, length(method.categories), size(xs)[end])
 end

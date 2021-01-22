@@ -5,7 +5,3 @@
 With the interface defined, it's dead simple to create data iterators for training and inference pipelines. See [image classification](docs/methods/imageclassification.jl) as a motivating example.
 
 The package was born from the realization that the data pipeline plays a large role in many deep learning projects. It abstracts the pipeline into steps that lend themselves to building training, inference and other pipelines.
-
-[Read on here](docs/introduction.md) to find out more about the interface.
-
-*DLPipelines.jl is still in an experimentation phase focused on exploring suitable interfaces.*

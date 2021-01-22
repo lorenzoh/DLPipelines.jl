@@ -127,12 +127,3 @@ Whether models for `method` take in batches of inputs. Default
 is `true`.
 """
 shouldbatch(method) = true
-
-
-# ## Inplace interface
-
-encode!(buf, method, context, sample) = encode(method, context, sample)
-encodeinput!(buf, method, context, input) = encodeinput(method, context, input)
-encodetarget!(buf, method, context, target) = encodetarget(method, context, target)
-decodey!(buf, method, context, y) = decodey(method, context, y)
-decodeŷ!(buf, method, context, ŷ) = decodeŷ(method, context, ŷ)
