@@ -5,7 +5,7 @@
 Transform data container `data` of samples into a data container of `(x, y)`-pairs.
 Maps `encode(method, context, sample)` over the observations in `data`.
 """
-@with_kw struct MethodDataset{M<:Method}
+@with_kw struct MethodDataset{M<:LearningMethod}
     data
     method::M
     context::Context
@@ -22,25 +22,3 @@ function LearnBase.getobs!(buf, ds::MethodDataset, idx)
 end
 
 const methoddataset = MethodDataset
-
-
-"""
-    methoddataloaders((traindata, validdata), method[; batchsize, dlkwargs...])
-    methoddataloaders(data, method[; pctgvalid, batchsize, dlkwargs])
-
-Create training and validation `DataLoader`s from two data containers `(traindata, valdata)`.
-If only one container `data` is passed, splits it into two with `pctgvalid`% of the data
-going into the validation split.
-
-Other keyword arguments are passed to `DataLoader`s.
-"""
-function methoddataloaders(datas::NTuple{2}, method; batchsize = 16, kwargs...)
-    traindata, validdata = datas
-    return (
-        DataLoader(methoddataset(traindata, method, Training()), batchsize; kwargs...),
-        DataLoader(methoddataset(validdata, method, Validation()), batchsize; kwargs...),
-    )
-end
-
-methoddataloaders(data, method; pctgval = 0.2, kwargs...) =
-    methoddataloaders(splitobs(data, at = pctgval), method; kwargs...)

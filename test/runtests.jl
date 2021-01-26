@@ -1,4 +1,3 @@
-# {cell=main}
 using DLPipelines
 using DataAugmentation
 using DLPipelines: Training, Validation, Inference
