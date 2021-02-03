@@ -37,48 +37,15 @@
             <select id="version-selector"></select>
             <svg id="menu-toggler" title="Contents" onclick="toggleIndexPage();" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z" fill="currentColor" /><path d="M2 12.0322C2 11.4799 2.44772 11.0322 3 11.0322H21C21.5523 11.0322 22 11.4799 22 12.0322C22 12.5845 21.5523 13.0322 21 13.0322H3C2.44772 13.0322 2 12.5845 2 12.0322Z" fill="currentColor" /><path d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z" fill="currentColor" /></svg>
         </div>
-        <div id="toc"><h2 id="dlpipelinesjl"><a href="../#dlpipelinesjl" class="anchor"></a>DLPipelines.jl</h2>
-<ul>
+        <div id="toc"><ul>
 <li><a href="../README.html">Readme</a></li>
 <li><a href="../docs/introduction.html">Introduction</a></li>
-<li><a href="../docs/interfaces/overview.html">Interfaces</a>
+</ul>
+<h2 id="interfacesdocsinterfacesoverviewmd"><a href="../#interfacesdocsinterfacesoverviewmd" class="anchor"></a><a href="../docs/interfaces/overview.html">Interfaces</a></h2>
 <ul>
 <li><a href="../docs/interfaces/core.html">Core interface</a></li>
 </ul>
-</li>
-<li><a href="../docs/methods/methods.html">Methods</a>
-<ul>
-<li><a href="../docs/methods/imageclassification.html">Image classification</a></li>
-</ul>
-</li>
-<li><a href="../docs/transforms.html">Transforms</a></li>
-<li>Tutorials
-<ul>
-<li><a href="../docs/tutorials/fluxtraining.html">Using with FluxTraining.jl</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="source-code"><a href="../#source-code" class="anchor"></a>Source code</h3>
-<ul>
-<li><a href="../src/DLPipelines.html"><code>DLPipelines.jl</code></a></li>
-<li><a href="../src/task.html"><code>task.jl</code></a></li>
-<li><a href="../src/dataset.html"><code>dataset.jl</code></a></li>
-<li><code>transforms</code>
-<ul>
-<li><a href="../src/transforms/spatial.html"><code>spatial.jl</code></a></li>
-<li><a href="../src/transforms/imagepreprocessing.html"><code>imagepreprocessing.jl</code></a></li>
-</ul>
-</li>
-<li><code>methods</code>
-<ul>
-<li><a href="../src/methods/imageclassification.html"><code>imageclassification.jl</code></a></li>
-</ul>
-</li>
-</ul>
-<h3 id="tests"><a href="../#tests" class="anchor"></a>Tests</h3>
-<ul>
-<li><a href="../test/runtests.html"><code>runtests.jl</code></a></li>
-</ul>
+<h2 id="functionalitydocsfunctionalitymd"><a href="../#functionalitydocsfunctionalitymd" class="anchor"></a><a href="../docs/functionality.html">Functionality</a></h2>
 </div>
         <article><h1 id="introduction"><a href="#introduction" class="anchor"></a>Introduction</h1>
 <h2 id="terminology"><a href="#terminology" class="anchor"></a>Terminology</h2>
@@ -99,8 +66,8 @@
 <h2 id="in-code"><a href="#in-code" class="anchor"></a>In code</h2>
 <p>Let’s give those concepts variable names and generic types so we can refer to them more easily.</p>
 <table><thead><tr><th align="right">Concept</th><th align="left">Abstract code</th><th align="left">Image classification</th></tr></thead><tbody><tr><td align="right">Task</td><td align="left"><code>Task</code></td><td align="left"><code>ImageClassificationTask &lt;: Task</code></td></tr><tr><td align="right">Method</td><td align="left"><code>Method{Task}</code></td><td align="left"><code>ImageClassification &lt;: Method{ImageClassificationTask}</code></td></tr><tr><td align="right">Input</td><td align="left"><code>input::I</code></td><td align="left"><code>image::AbstractMatrix{&lt;:Colorant}</code></td></tr><tr><td align="right">Target</td><td align="left"><code>target::T</code></td><td align="left"><code>category::String</code></td></tr><tr><td align="right">Encoded input</td><td align="left"><code>x::X</code></td><td align="left"><code>x::AbstractArray{Float32, 3}</code></td></tr><tr><td align="right">Encoded target</td><td align="left"><code>y::Y</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr><tr><td align="right">Model output</td><td align="left"><code>ŷ::Ŷ</code></td><td align="left"><code>y::Vector{Float32}</code></td></tr></tbody></table>
-<p>So a <code>Task</code> is an abstract type representing a mapping from some input type <code>I</code> to target type <code>T</code>. A <code>Method{T}</code> implements the task <code>T</code> by using encoded representations <code>X</code> and <code>Y</code>. For example, the <code>ImageClassificationTask</code> task represents a mapping from an image to a category. The concrete <a href="../docstrings/DLPipelines.Method.html"><code>Method</code></a> <a href="../docstrings/DLPipelines.ImageClassification.html"><code>ImageClassification</code></a> implements that task using the encoded representations defined in the table above.</p>
-<p>The most important type is <a href="../docstrings/DLPipelines.Method.html"><code>Method</code></a> which represents a method for a <a href="../docstrings/DLPipelines.Task.html"><code>Task</code></a>. All interface functions will dispatch on <code>Method</code>. It should be a concrete <code>struct</code> containing necessary configuration.</p>
+<p>So a <code>Task</code> is an abstract type representing a mapping from some input type <code>I</code> to target type <code>T</code>. A <code>Method{T}</code> implements the task <code>T</code> by using encoded representations <code>X</code> and <code>Y</code>. For example, the <code>ImageClassificationTask</code> task represents a mapping from an image to a category. The concrete <a href="../docstrings/Core.Method.html"><code>Method</code></a> <code>ImageClassification</code> implements that task using the encoded representations defined in the table above.</p>
+<p>The most important type is <a href="../docstrings/DLPipelines.LearningMethod.html"><code>LearningMethod</code></a> which represents a method for a <a href="../docstrings/DLPipelines.LearningTask.html"><code>LearningTask</code></a>. All interface functions will dispatch on <code>LearningMethod</code>. It should be a concrete <code>struct</code> containing necessary configuration.</p>
 <h2 id="core-pipelines"><a href="#core-pipelines" class="anchor"></a>Core pipelines</h2>
 <p class="marginnote">We neglect batching here, as it doesn’t change the semantics of the data pipeline, just the practical implementation.</p>
 <p>To give a motivation for the interface, consider the two most important pipelines in a deep learning application: training and inference.</p>
