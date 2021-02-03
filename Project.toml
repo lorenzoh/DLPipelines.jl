@@ -12,6 +12,10 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 julia = "1"
+DataLoaders = "0.1"
+LearnBase = "0.3"
+MLDataPattern = "0.5"
+Parameters = "0.12"
 
 [publish]
 theme = "theme"
