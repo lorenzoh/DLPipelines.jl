@@ -8,6 +8,7 @@
 module DLPipelines
 
 
+using DataLoaders
 using LearnBase
 using MLDataPattern
 using Parameters
