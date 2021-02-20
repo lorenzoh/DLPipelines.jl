@@ -20,14 +20,6 @@ function interpretŷ end
 function interprety end
 
 
-function _interpretstepbatch(method, xs, ys, ŷs)
-    ncol = 2 * round(Int, sqrt(size(xs)[end]))
-
-    return mosaicview([
-        interpretstep(method, x, y, ŷ)
-        for (x, y, ŷ) in zip(obsslices(xs), obsslices(ys), obsslices(ŷs))
-        ], ncol = ncol)
-end
 
 # ## Training interface
 

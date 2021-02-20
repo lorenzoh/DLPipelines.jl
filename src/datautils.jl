@@ -5,7 +5,7 @@
 Transform data container `data` of samples into a data container of `(x, y)`-pairs.
 Maps `encode(method, context, sample)` over the observations in `data`.
 """
-@with_kw struct MethodDataset{M<:Method}
+@with_kw struct MethodDataset{M<:LearningMethod}
     data
     method::M
     context::Context
@@ -21,12 +21,19 @@ function LearnBase.getobs!(buf, ds::MethodDataset, idx)
     return encode!(buf, ds.method, ds.context, getobs(ds.data, idx))
 end
 
+
+"""
+    methoddataset(data, method, context)
+
+Transform data container `data` of samples into a data container of `(x, y)`-pairs.
+Maps `encode(method, context, sample)` over the observations in `data`.
+"""
 const methoddataset = MethodDataset
 
 
 """
-    methoddataloaders((traindata, validdata), method[; batchsize, dlkwargs...])
-    methoddataloaders(data, method[; pctgvalid, batchsize, dlkwargs])
+    methoddataloaders(data, method)
+    methoddataloaders(traindata, validdata, method[, batchsize; shuffle = true, dlkwargs...])
 
 Create training and validation `DataLoader`s from two data containers `(traindata, valdata)`.
 If only one container `data` is passed, splits it into two with `pctgvalid`% of the data
@@ -47,5 +54,15 @@ function methoddataloaders(
     )
 end
 
-methoddataloaders(data, method; pctgval = 0.2, kwargs...) =
-    methoddataloaders(splitobs(data, at = pctgval), method; kwargs...)
+
+function methoddataloaders(
+        data,
+        method::LearningMethod,
+        batchsize = 16;
+        pctgval = 0.2,
+        shuffle = true,
+        kwargs...)
+    data = shuffle ? shuffleobs(data) : data
+    traindata, validdata = splitobs(data, at = 1-pctgval)
+    methoddataloaders(traindata, validdata, method, batchsize; shuffle = false, kwargs...)
+end

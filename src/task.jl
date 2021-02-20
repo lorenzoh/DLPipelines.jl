@@ -3,29 +3,29 @@
 # # Types
 #
 # We start off by defining the abstract types that will be used for dispatch.
-# ### [`Task`](#)
+# ### [`LearningTask`](#)
 """
-    abstract type Task
+    abstract type LearningTask
 
 Represents a mapping from high-level types
 `I` to `T`.
 
-See also [`Method`](#).
+See also [`LearningMethod`](#).
 """
-abstract type Task end
+abstract type LearningTask end
 
 
-# ### [`Method`](#)
+# ### [`LearningMethod`](#)
 """
-    abstract type Method{Task}
+    abstract type LearningMethod{LearningTask}
 
 Represents a concrete approach for solving a
-[`Task`](#).
+[`LearningTask`](#).
 
 See [core interface](../docs/interfaces/core.md) for more on
-how to implement custom `Method`s
+how to implement custom `LearningMethod`s
 """
-abstract type Method{Task} end
+abstract type LearningMethod{LearningTask} end
 
 
 # ### [`Context`](#) and concrete types
@@ -61,7 +61,7 @@ struct Inference <: Context end
 Encode `input` into a representation that a model for `method`
 takes as input.
 
-See also [`Method`](#), [`encode`](#), and [`encodetarget`](#).
+See also [`LearningMethod`](#), [`encode`](#), and [`encodetarget`](#).
 """
 function encodeinput end
 
