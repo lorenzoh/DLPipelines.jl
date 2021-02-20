@@ -34,11 +34,16 @@ going into the validation split.
 
 Other keyword arguments are passed to `DataLoader`s.
 """
-function methoddataloaders(datas::NTuple{2}, method; batchsize = 16, kwargs...)
-    traindata, validdata = datas
+function methoddataloaders(
+        (traindata, valdata)::NTuple{2},
+        method;
+        batchsize::Int = 16,
+        validbsfactor::Int = 2,
+        pctgval = nothing,
+        kwargs...)
     return (
         DataLoader(methoddataset(traindata, method, Training()), batchsize; kwargs...),
-        DataLoader(methoddataset(validdata, method, Validation()), batchsize; kwargs...),
+        DataLoader(methoddataset(validdata, method, Validation()), batchsize * validbsfactor; kwargs...),
     )
 end
 
