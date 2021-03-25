@@ -98,7 +98,7 @@ pass them to [`encodeinput`](#) and [`encodetarget`](#).
   tuple of `(input, target)`, for example a `Dict` that includes additional
   information. `encode` still needs to return an `(x, y)`-tuple, though.
 """
-encode(method, context, (input, target)::Tuple) =
+encode(method, context, (input, target)::Union{Tuple, NamedTuple}) =
     (encodeinput(method, context, input), encodetarget(method, context, target))
 
 
