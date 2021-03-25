@@ -1,7 +1,7 @@
 
 # Core interface
 
-First you need to define a custom [`Method`](#) (and possibly a `Task`).
+First you need to define a custom [`LearningMethod`](#) (and possibly a `Task`).
 
 Then implement the following functions by dispatching on the method.
 

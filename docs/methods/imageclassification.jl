@@ -2,7 +2,7 @@
 #
 # *See [`ImageClassification`](#) for complete documentation of its arguments.*
 #
-# Let's explore what you can do with the [`Method`](#) interface implemented. We're using
+# Let's explore what you can do with the [`LearningMethod`](#) interface implemented. We're using
 # [DLDatasets.jl](https://github.com/lorenzoh/DLDatasets.jl) to access *ImageNette*, a small
 # image classification dataset. Install the package using
 #
@@ -35,7 +35,7 @@ image
 
 categories = DLDatasets.metadata(ImageNette).labels
 
-# ## Image classification `Method`
+# ## Image classification `LearningMethod`
 #
 # With the dataset ready, we can create an instance of [`ImageClassification`](#).
 #

@@ -1,6 +1,6 @@
 # Interfaces
 
-DLPipelines.jl has multiple interfaces that you can implement for your [`Method`](#)s.
+DLPipelines.jl has multiple interfaces that you can implement for your [`LearningMethod`](#)s.
 
 [Core interface](./core.md), for inference and training pipelines. Everything you need to use [`predict`](#), [`predictbatch`](#) and [`methoddataset`](#).
 
