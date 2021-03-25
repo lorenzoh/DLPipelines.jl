@@ -1,7 +1,7 @@
 name = "DLPipelines"
 uuid = "e6530d7c-7faa-4ede-a0d6-9eff9baad396"
 authors = ["Lorenz Ohly <lorenz.ohly@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 DataLoaders = "2e981812-ef13-4a9c-bfa0-ab13047b12a9"
