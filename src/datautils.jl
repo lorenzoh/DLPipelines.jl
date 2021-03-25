@@ -47,11 +47,12 @@ function methoddataloaders(
         method::LearningMethod,
         batchsize = 16;
         shuffle = true,
+        validbsfactor = 2,
         kwargs...)
     traindata = shuffle ? shuffleobs(traindata) : traindata
     return (
         DataLoader(methoddataset(traindata, method, Training()), batchsize; kwargs...),
-        DataLoader(methoddataset(validdata, method, Validation()), batchsize; kwargs...),
+        DataLoader(methoddataset(validdata, method, Validation()), validbsfactor * batchsize; kwargs...),
     )
 end
 
