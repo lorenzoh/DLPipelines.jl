@@ -64,7 +64,6 @@ function methoddataloaders(
         pctgval = 0.2,
         shuffle = true,
         kwargs...)
-    data = shuffle ? shuffleobs(data) : data
-    traindata, validdata = splitobs(data, at = 1-pctgval)
+    traindata, validdata = splitobs(shuffleobs(data), at = 1-pctgval)
     methoddataloaders(traindata, validdata, method, batchsize; shuffle = false, kwargs...)
 end
