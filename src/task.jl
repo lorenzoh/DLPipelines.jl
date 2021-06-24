@@ -87,13 +87,7 @@ pass them to [`encodeinput`](#) and [`encodetarget`](#).
   tuple of `(input, target)`, for example a `Dict` that includes additional
   information. `encode` still needs to return an `(x, y)`-tuple, though.
 """
-function encode(method, context, sample)
-    (input, target) = sample
-    return (
-        encodeinput(method, context, input),
-        encodetarget(method, context, target)
-    )
-end
+function encode end
 
 
 """
