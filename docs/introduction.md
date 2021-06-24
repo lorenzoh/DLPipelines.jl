@@ -31,7 +31,6 @@ Let's give those concepts variable names and generic types so we can refer to th
 
 |        Concept | Abstract code  | Image classification                                     |
 | -------------: | :------------- | :------------------------------------------------------- |
-|           Task | `Task`         | `ImageClassificationTask <: Task`                        |
 |         Method | `Method{Task}` | `ImageClassification <: Method{ImageClassificationTask}` |
 |          Input | `input::I`     | `image::AbstractMatrix{<:Colorant}`                      |
 |         Target | `target::T`    | `category::String`                                       |
@@ -41,7 +40,7 @@ Let's give those concepts variable names and generic types so we can refer to th
 
 So a `Task` is an abstract type representing a mapping from some input type `I` to target type `T`. A `Method{T}` implements the task `T` by using encoded representations `X` and `Y`. For example, the `ImageClassificationTask` task represents a mapping from an image to a category. The concrete [`LearningMethod`](#) `ImageClassification` implements that task using the encoded representations defined in the table above.
 
-The most important type is [`LearningMethod`](#) which represents a method for a [`LearningTask`](#). All interface functions will dispatch on `LearningMethod`. It should be a concrete `struct` containing necessary configuration. 
+The most important type is [`LearningMethod`](#) which represents a method for a learning task. All interface functions will dispatch on `LearningMethod`. It should be a concrete `struct` containing necessary configuration. 
 
 ## Core pipelines
 
