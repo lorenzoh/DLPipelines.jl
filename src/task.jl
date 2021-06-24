@@ -3,29 +3,18 @@
 # # Types
 #
 # We start off by defining the abstract types that will be used for dispatch.
-# ### [`LearningTask`](#)
-"""
-    abstract type LearningTask
-
-Represents a mapping from high-level types
-`I` to `T`.
-
-See also [`LearningMethod`](#).
-"""
-abstract type LearningTask end
 
 
 # ### [`LearningMethod`](#)
 """
-    abstract type LearningMethod{LearningTask}
+    abstract type LearningMethod
 
-Represents a concrete approach for solving a
-[`LearningTask`](#).
+Represents a concrete approach for solving a learning task.
 
 See [core interface](../docs/interfaces/core.md) for more on
 how to implement custom `LearningMethod`s
 """
-abstract type LearningMethod{LearningTask} end
+abstract type LearningMethod end
 
 
 # ### [`Context`](#) and concrete types
