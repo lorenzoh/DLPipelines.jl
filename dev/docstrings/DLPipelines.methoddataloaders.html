@@ -56,7 +56,14 @@ methoddataloaders(traindata, validdata, method[, batchsize; shuffle = true, dlkw
 <p>Create training and validation <code>DataLoader</code>s from two data containers <code>(traindata, valdata)</code>.
 If only one container <code>data</code> is passed, splits it into two with <code>pctgvalid</code>% of the data
 going into the validation split.</p>
-<p>Other keyword arguments are passed to <code>DataLoader</code>s.</p>
+<h2 id="keyword-arguments"><a href="#keyword-arguments" class="anchor"></a>Keyword arguments</h2>
+<ul>
+<li><code>batchsize = 16</code></li>
+<li><code>shuffle = true</code>: Whether to shuffle the training data container</li>
+<li><code>validbsfactor</code>: Factor to multiply batchsize for validation data loader with (validation
+batches can be larger since no GPU memory is needed for the backward pass)</li>
+</ul>
+<p>All remaining keyword arguments are passed to <a href="DataLoaders.DataLoader.html"><code>DataLoader</code></a>.</p>
 </div>
 </div>
 </article>
