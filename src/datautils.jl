@@ -39,7 +39,14 @@ Create training and validation `DataLoader`s from two data containers `(traindat
 If only one container `data` is passed, splits it into two with `pctgvalid`% of the data
 going into the validation split.
 
-Other keyword arguments are passed to `DataLoader`s.
+## Keyword arguments
+
+- `batchsize = 16`
+- `shuffle = true`: Whether to shuffle the training data container
+- `validbsfactor`: Factor to multiply batchsize for validation data loader with (validation
+    batches can be larger since no GPU memory is needed for the backward pass)
+
+All remaining keyword arguments are passed to [`DataLoader`](#).
 """
 function methoddataloaders(
         traindata,

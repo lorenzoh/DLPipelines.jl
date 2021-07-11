@@ -2,7 +2,8 @@
     predict(method, model, input[; device, context])
 
 Predict a `target` from `input` using `model`. Optionally apply function `device`
-to `x` before passing to `model` and use `context` instead of the default, `Inference`.
+to `x` before passing to `model` and use `context` instead of the default
+context [`Inference`](#).
 """
 function predict(method, model, input; device = identity, undevice = identity, context = Inference())
     if shouldbatch(method)
@@ -16,8 +17,9 @@ end
 """
     predictbatch(method, model, inputs[; device, context])
 
-Predict `targets` from a batch of `inputs` using `model`. Optionally apply function `device`
-to `xs` before passing to `model` and use `context` instead of the default, `Inference`.
+Predict `targets` from a vector of `inputs` using `model` by batching them.
+Optionally apply function `device` to batch before passing to `model` and
+use `context` instead of the default [`Inference`](#).
 """
 function predictbatch(method, model, inputs; device = identity, undevice = identity, context = Inference())
     xs = device(DataLoaders.collate([encodeinput(method, context, input) for input in inputs]))
