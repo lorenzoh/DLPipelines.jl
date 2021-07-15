@@ -22,7 +22,7 @@ Optionally apply function `device` to batch before passing to `model` and
 use `context` instead of the default [`Inference`](#).
 """
 function predictbatch(method, model, inputs; device = identity, undevice = identity, context = Inference())
-    xs = device(DataLoaders.collate([encodeinput(method, context, input) for input in inputs]))
+    xs = device(DataLoaders.collate([copy(encodeinput(method, context, input)) for input in inputs]))
     ŷs = undevice(model(xs))
     targets = [decodeŷ(method, context, ŷ) for ŷ in DataLoaders.obsslices(ŷs)]
     return targets
