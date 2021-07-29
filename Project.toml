@@ -11,11 +11,11 @@ Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-julia = "1"
 DataLoaders = "0.1"
-LearnBase = "0.3"
+LearnBase = "0.3, 0.5"
 MLDataPattern = "0.5"
 Parameters = "0.12"
+julia = "1"
 
 [publish]
 theme = "theme"
