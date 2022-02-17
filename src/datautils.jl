@@ -43,10 +43,30 @@ going into the validation split.
 
 - `batchsize = 16`
 - `shuffle = true`: Whether to shuffle the training data container
-- `validbsfactor`: Factor to multiply batchsize for validation data loader with (validation
+- `validbsfactor = 2`: Factor to multiply batchsize for validation data loader with (validation
     batches can be larger since no GPU memory is needed for the backward pass)
 
 All remaining keyword arguments are passed to [`DataLoader`](#).
+
+## Examples
+
+Basic usage:
+
+```julia
+traindl, validdl = methoddataloaders(data, method, 128)
+```
+
+Explicit validation data container and no shuffling of training container:
+
+```julia
+traindl, validdl = methoddataloaders(traindata, validdata, method, shuffle=false)
+```
+
+Customizing the [`DataLoader`](#)
+
+```julia
+traindl, validdl = methoddataloaders(data, method, parallel=false, buffered=false)
+```
 """
 function methoddataloaders(
         traindata,
