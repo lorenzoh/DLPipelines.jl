@@ -60,10 +60,20 @@ going into the validation split.</p>
 <ul>
 <li><code>batchsize = 16</code></li>
 <li><code>shuffle = true</code>: Whether to shuffle the training data container</li>
-<li><code>validbsfactor</code>: Factor to multiply batchsize for validation data loader with (validation
+<li><code>validbsfactor = 2</code>: Factor to multiply batchsize for validation data loader with (validation
 batches can be larger since no GPU memory is needed for the backward pass)</li>
 </ul>
 <p>All remaining keyword arguments are passed to <a href="DataLoaders.DataLoader.html"><code>DataLoader</code></a>.</p>
+<h2 id="examples"><a href="#examples" class="anchor"></a>Examples</h2>
+<p>Basic usage:</p>
+<pre><code class="language-julia">traindl, validdl = methoddataloaders(data, method, 128)
+</code></pre>
+<p>Explicit validation data container and no shuffling of training container:</p>
+<pre><code class="language-julia">traindl, validdl = methoddataloaders(traindata, validdata, method, shuffle=false)
+</code></pre>
+<p>Customizing the <a href="DataLoaders.DataLoader.html"><code>DataLoader</code></a></p>
+<pre><code class="language-julia">traindl, validdl = methoddataloaders(data, method, parallel=false, buffered=false)
+</code></pre>
 </div>
 </div>
 </article>
