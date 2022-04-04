@@ -1,4 +1,8 @@
-# DLPipelines
+# DLPipelines: deprecated in favor of [FastAI.jl](https://github.com/FluxML/FastAI.jl)
+
+DLPipelines.jl has been deprecated, and all of its functionality has been moved to [FastAI.jl](https://github.com/FluxML/FastAI.jl).
+
+---
 
 *DLPipelines.jl* is an interface for defining deep learning data pipelines. This includes every data transformation beside the model itself: preprocessing and augmenting the data before feeding it into the model, and decoding the model's outputs to targets.
 
